@@ -1,0 +1,39 @@
+# we create a Docker image from source code 
+version: '3.8'
+services:
+  dev-database:
+    image: postgres:15.4
+    container_name: dev-database
+    ports:
+      - 5434:5432 #{port in host (myPC)}: {port in container}
+    #environment variables, like: db's name, password...
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: Hung@02011999
+      POSTGRES_DB: testdb
+    networks:
+      - nestjs-networks
+    # create another container for "Test"
+  test-database:
+    image: postgres:15.4
+    container_name: test-database
+    ports:
+      - 5435:5432 #{port in host (myPC)}: {port in container}
+    #environment variables, like: db's name, password...
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: Hung@02011999
+      POSTGRES_DB: testdb
+    networks:
+      - nestjs-networks
+networks:
+  nestjs-networks:
+# Create container, netword,... from "docker compose " file: 
+  # -d: (detach mode) deamon/background mode
+  # docker compose up -d
+# if you want to start only (chỉ một) specified (được chỉ định) services/container:
+  # docker compose up -d dev-database (name container) -d
+# docker compose down : Rollback docker compose
+# docker logs "name container": watch log run of container
+# how to remove containers+volumes
+# docker compose rm dev-database --stop --force --volumes 
