@@ -1,13 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { dNgayChungTu, selectChungTu } from '../select';
-import moment from "moment";
+import { getChungTuLasted } from '../getchungtulasted';
+import { soChungTuNext } from '../getChungTuNext';
 @Injectable()
 export class ChungtughisoService {  
     constructor (private prismaService: PrismaService){}
-    formattedDate (date: Date, format : string){
-        return moment(date).format(format)
-    }
+    
     async getAll(){
         return await this.prismaService.tChungTuGhiSo.findMany({
             include: {
@@ -28,11 +27,20 @@ export class ChungtughisoService {
         })
     }
     async getChungTuGhiSo (){
-         const chungTuGhiSo = await this.prismaService.tChungTuGhiSo.findMany({
+        const listChungTuGhiSo = await this.prismaService.tChungTuGhiSo.findMany({
             select :selectChungTu,
             orderBy: {dNgayChungTu}
         })
+        const chungTuGhiSoLast = getChungTuLasted(listChungTuGhiSo)
+        const chungTuGhiSo = {
+            listChungTuGhiSo,
+            chungTuGhiSoLast
+        }
         return chungTuGhiSo
     }
     
+    async soChungTuGhiSoNext () {
+        
+        return soChungTuNext((await this.getChungTuGhiSo()).chungTuGhiSoLast)
+    }
 }

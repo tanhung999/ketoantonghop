@@ -1,5 +1,6 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, ForbiddenException, Get } from '@nestjs/common';
 import { ListchungtuService } from './listchungtu.service';
+
 
 @Controller('listchungtu')
 export class ListchungtuController {
@@ -9,4 +10,5 @@ export class ListchungtuController {
     getAll(){
         return this.listChungTuService.getChungTu()
     }
+    
 }

@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+
 import { PhieuchichitietService } from '../phieuchichitiet/phieuchichitiet.service';
 import { PhieuthuchitietService } from '../phieuthuchitiet/phieuthuchitiet.service';
 import { ChungtughisoService } from '../chungtughiso/chungtughiso.service';
@@ -7,6 +7,8 @@ import { PhieunhaphanghoaService } from '../phieunhaphanghoa/phieunhaphanghoa.se
 import { PhieuxuathanghoaService } from '../phieuxuathanghoa/phieuxuathanghoa.service';
 import { PhieunhaphangtralaiService } from '../phieunhaphangtralai/phieunhaphangtralai.service';
 import { PhieuxuathangtralaiService } from '../phieuxuathangtralai/phieuxuathangtralai.service';
+import { Injectable } from '@nestjs/common';
+
 
 @Injectable()
 export class ListchungtuService {
@@ -41,4 +43,5 @@ export class ListchungtuService {
             chungTuXuatHangTraLai
         }
     }
+    
 }

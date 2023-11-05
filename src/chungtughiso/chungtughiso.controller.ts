@@ -9,9 +9,12 @@ export class ChungtughisoController {
     getChungTuGhiSo(){
         return this.chungTuGhiSoService.getAll()
     }
-    @Get(':sochungtu')
+    @Get('/bysochungtu/:sochungtu')
     getChungTuGhiSoByMaChungTu(@Param ('sochungtu') soChungTu: string ){
         return this.chungTuGhiSoService.getChungTuGhiSoBySoChungTu(soChungTu)
     }
-
+    @Get('sochungtunext')
+    getSoChungTuGhiSoNext (){
+        return this.chungTuGhiSoService.soChungTuGhiSoNext();
+    }
 }
