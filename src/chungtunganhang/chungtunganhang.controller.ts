@@ -8,8 +8,13 @@ export class ChungtunganhangController {
     getAll (){
         return this.chungTuNganHangService.getAll()
     }
-    @Get(':sochungtu')
+    @Get('/bysochungtu/:sochungtu')
     getChungTuNganHangBySoChungTu(@Param('sochungtu') soChungTu: string ){
         return this.chungTuNganHangService.getChungTuNganHangBySoChungTu(soChungTu)
+    }
+
+    @Get('sochungtunext')
+    getSoChungTuGhiSoNext (){
+        return this.chungTuNganHangService.soChungTuGhiSoNext()
     }
 }

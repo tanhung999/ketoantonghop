@@ -8,8 +8,12 @@ export class ChungtuketchuyenController {
     getAll(){
         return this.chungTuKetChuyenService.getAll()
     }
-    @Get(':machungtu')
-    getChungTuKetChuyenByMaChungTu(@Param('machungtu') maChungTu: string){
+    @Get('/bysochungtu/:sochungtu')
+    getChungTuKetChuyenByMaChungTu(@Param('sochungtu') maChungTu: string){
         return this.chungTuKetChuyenService.getChungTuKetChuyenByMaChungTu(maChungTu)
+    }
+    @Get('sochungtunext')
+    getSoChungTuGhiSoNext (){
+        return this.chungTuKetChuyenService.soChungTuGhiSoNext()
     }
 }

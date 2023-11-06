@@ -8,9 +8,13 @@ export class PhieuxuathanghoaController {
     getAll(){
         return this.phieuXuatHangHoaService.getAll()
     }
-    @Get(':sochungtu')
+    @Get(':/bysochungtu/:sochungtu')
     getPhieuXuatHangHoaBySoChungTu (@Param('sochungtu') soChungTu: string){
         return this.phieuXuatHangHoaService.getPhieuXuatHangHoaBySoChungTu(soChungTu)
+    }
+    @Get('sochungtunext')
+    getSoChungTuGhiSoNext (){
+        return this.phieuXuatHangHoaService.soChungTuGhiSoNext()
     }
     
 }

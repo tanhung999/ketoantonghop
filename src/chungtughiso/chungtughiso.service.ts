@@ -26,20 +26,19 @@ export class ChungtughisoService {
             }
         })
     }
-    async getChungTuGhiSo (){
-        const listChungTuGhiSo = await this.prismaService.tChungTuGhiSo.findMany({
+    async getChungTuGhiSo(){
+        const listChungTu = await this.prismaService.tChungTuGhiSo.findMany({
             select :selectChungTu,
             orderBy: {dNgayChungTu}
         })
-        const chungTuGhiSoLast = getChungTuLasted(listChungTuGhiSo)
-        const chungTuGhiSo = {
-            listChungTuGhiSo,
-            chungTuGhiSoLast
+        const chungTuLast = getChungTuLasted(listChungTu)
+        const chungTu = {
+            listChungTu,
+            chungTuLast
         }
-        return chungTuGhiSo
+        return chungTu
     }
-    
     async soChungTuGhiSoNext () {
-        return soChungTuNext((await this.getChungTuGhiSo()).chungTuGhiSoLast)
+        return soChungTuNext((await this.getChungTuGhiSo()).chungTuLast)
     }
 }

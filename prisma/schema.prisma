@@ -152,10 +152,8 @@ model tDanhMucTaiKhoan {
   tChungTuNganHangChiTiet         tChungTuNganHangChiTiet[]
   tDanhMucTaiKhoanCongNoKhachHang tDanhMucTaiKhoanCongNoKhachHang[]
   tPhieuChiChiTiet                tPhieuChiChiTiet[]
-  tPhieuNhapHangHoa               tPhieuNhapHangHoa[]
   tPhieuNhapHangTraLai            tPhieuNhapHangTraLai[]
   tPhieuThuChiTiet                tPhieuThuChiTiet[]
-  tPhieuXuatHangHoa               tPhieuXuatHangHoa[]
   tPhieuXuatHangTraLai            tPhieuXuatHangTraLai[]
 }
 
@@ -224,9 +222,7 @@ model tPhieuNhapHangHoa {
   cMatHang                    String?                       @db.NVarChar(30)
   tDanhMucChungTu             tDanhMucChungTu?              @relation(fields: [cLoaiChungTu], references: [cMaLoaiChungTu], onDelete: NoAction, onUpdate: NoAction, map: "FK_tPhieuNhapHangHoa_tDanhMucChungTu")
   tDanhMucKhachHang           tDanhMucKhachHang?            @relation(fields: [cMaNguoiBan], references: [cMaKhachHang], onDelete: NoAction, onUpdate: NoAction, map: "FK_tPhieuNhapHangHoa_tDanhMucKhachHang")
-  tDanhMucTaiKhoan            tDanhMucTaiKhoan?             @relation(fields: [cTaiKhoanNo], references: [cTaiKhoan], onDelete: NoAction, onUpdate: NoAction, map: "FK_tPhieuNhapHangHoa_tDanhMucTaiKhoan")
   tPhieuNhapHangHoaChiTiet    tPhieuNhapHangHoaChiTiet[]
-  tPhieuXuatHangHoaChiTiet    tPhieuXuatHangHoaChiTiet[]
   tPhieuXuatHangTraLaiChiTiet tPhieuXuatHangTraLaiChiTiet[]
 }
 
@@ -338,24 +334,22 @@ model tPhieuXuatHangHoa {
   cSoHoaDon                String?                    @db.NVarChar(7)
   tDanhMucChungTu          tDanhMucChungTu?           @relation(fields: [cLoaiChungTu], references: [cMaLoaiChungTu], onDelete: NoAction, onUpdate: NoAction, map: "FK_tPhieuXuatHangHoa_tDanhMucChungTu")
   tDanhMucKhachHang        tDanhMucKhachHang?         @relation(fields: [cMaKhachHang], references: [cMaKhachHang], onDelete: NoAction, onUpdate: NoAction, map: "FK_tPhieuXuatHangHoa_tDanhMucKhachHang")
-  tDanhMucTaiKhoan         tDanhMucTaiKhoan?          @relation(fields: [cTaiKhoanNoGiaVon], references: [cTaiKhoan], onDelete: NoAction, onUpdate: NoAction, map: "FK_tPhieuXuatHangHoa_tDanhMucTaiKhoan")
   tPhieuXuatHangHoaChiTiet tPhieuXuatHangHoaChiTiet[]
 }
 
 model tPhieuXuatHangHoaChiTiet {
-  id                Int                @id(map: "PK__tPhieuXu__3213E83FCB013B66") @default(autoincrement())
-  cMaChungTu        String             @db.NVarChar(20)
-  cMaHang           String             @db.NVarChar(8)
-  cDonViTinh        String?            @db.NVarChar(10)
+  id                Int               @id(map: "PK__tPhieuXu__3213E83FCB013B66") @default(autoincrement())
+  cMaChungTu        String            @db.NVarChar(20)
+  cMaHang           String            @db.NVarChar(8)
+  cDonViTinh        String?           @db.NVarChar(10)
   nSoLuong          Float?
   nDonGiaVon        Float?
   nThanhTienGiaVon  Int?
   nDonGiaBan        Float?
   nThanhTienGiaBan  Int?
-  cMaChungTuNhap    String?            @db.NVarChar(20)
-  tPhieuXuatHangHoa tPhieuXuatHangHoa  @relation(fields: [cMaChungTu], references: [cMaChungTu], onUpdate: NoAction, map: "FK__tPhieuXua__cMaCh__73BA3083")
-  tDanhMucHangHoa   tDanhMucHangHoa    @relation(fields: [cMaHang], references: [cMaHang], onUpdate: NoAction, map: "FK_tPhieuXuatHangHoaChiTiet_tDanhMucHangHoa")
-  tPhieuNhapHangHoa tPhieuNhapHangHoa? @relation(fields: [cMaChungTuNhap], references: [cMaChungTu], onDelete: NoAction, onUpdate: NoAction, map: "FK_tPhieuXuatHangHoaChiTiet_tPhieuNhapHangHoa")
+  cMaChungTuNhap    String?           @db.NVarChar(20)
+  tPhieuXuatHangHoa tPhieuXuatHangHoa @relation(fields: [cMaChungTu], references: [cMaChungTu], onUpdate: NoAction, map: "FK__tPhieuXua__cMaCh__73BA3083")
+  tDanhMucHangHoa   tDanhMucHangHoa   @relation(fields: [cMaHang], references: [cMaHang], onUpdate: NoAction, map: "FK_tPhieuXuatHangHoaChiTiet_tDanhMucHangHoa")
 }
 
 model tPhieuXuatHangTraLai {

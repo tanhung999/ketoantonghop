@@ -8,8 +8,12 @@ export class PhieuthuchitietController {
     getAll(){
         return this.phieuThuChiTietService.getAll()
     }
-    @Get(':sochungtu')
+    @Get('/bysochungtu/:sochungtu')
     getPhieuThuBySoChungTu(@Param('sochungtu') soChungTu: string) {
         return this.phieuThuChiTietService.getPhieuThuBySoChungTu(soChungTu)
+    }
+    @Get('sochungtunext')
+    getSoChungTuGhiSoNext (){
+        return this.phieuThuChiTietService.soChungTuGhiSoNext()
     }
 }
