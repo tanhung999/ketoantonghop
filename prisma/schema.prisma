@@ -13,10 +13,10 @@ model tChungTuGhiSo {
   cSoChungTu           String?                @db.NVarChar(6)
   dNgayChungTu         DateTime?              @db.DateTime
   cHoTen               String?                @db.NVarChar(30)
-  cMaKhachHangNo       String?                @db.NVarChar(10)
+  cMaKhachHangNo       String?                @db.NVarChar(5)
   cTenKhachHangNo      String?                @db.NVarChar(100)
   cMaSoThueNo          String?                @db.NVarChar(20)
-  cMaKhachHangCo       String?                @db.NVarChar(10)
+  cMaKhachHangCo       String?                @db.NVarChar(5)
   cTenKhachHangCo      String?                @db.NVarChar(100)
   cMaSoThueCo          String?                @db.NVarChar(20)
   cDienGiai            String?                @db.NVarChar(100)
@@ -27,17 +27,20 @@ model tChungTuGhiSo {
   nThueSuat            Float?
   nThueGTGT            Float?
   cMatHang             String?                @db.NVarChar(30)
+  tDanhMucChungTu      tDanhMucChungTu?       @relation(fields: [cLoaiChungTu], references: [cMaLoaiChungTu], onDelete: NoAction, onUpdate: NoAction, map: "FK_tChungTuGhiSo_tDanhMucChungTu")
+  tDanhMucKhachHang    tDanhMucKhachHang?     @relation(fields: [cMaKhachHangNo], references: [cMaKhachHang], onDelete: NoAction, onUpdate: NoAction, map: "FK_tChungTuGhiSo_tDanhMucKhachHang")
   tChungTuGhiSoChiTiet tChungTuGhiSoChiTiet[]
 }
 
 model tChungTuGhiSoChiTiet {
-  cMaChungTu       String        @db.NVarChar(20)
-  nMaSo            Int           @id(map: "PK__tChungTu__9B1A8F8B0CFAAE93")
-  cDienGiaiChiTiet String?       @db.NVarChar(50)
+  cMaChungTu       String            @db.NVarChar(20)
+  nMaSo            Int               @id(map: "PK__tChungTu__9B1A8F8B0CFAAE93")
+  cDienGiaiChiTiet String?           @db.NVarChar(50)
   nSoTien          Float?
-  cTaiKhoanNo      String?       @db.NVarChar(10)
-  cTaiKhoanCo      String?       @db.NVarChar(10)
-  tChungTuGhiSo    tChungTuGhiSo @relation(fields: [cMaChungTu], references: [cMaChungTu], onUpdate: NoAction, map: "FK__tChungTuG__cMaCh__6A30C649")
+  cTaiKhoanNo      String?           @db.NVarChar(20)
+  cTaiKhoanCo      String?           @db.NVarChar(20)
+  tChungTuGhiSo    tChungTuGhiSo     @relation(fields: [cMaChungTu], references: [cMaChungTu], onUpdate: NoAction, map: "FK__tChungTuG__cMaCh__6A30C649")
+  tDanhMucTaiKhoan tDanhMucTaiKhoan? @relation(fields: [cTaiKhoanNo], references: [cTaiKhoan], onDelete: NoAction, onUpdate: NoAction, map: "FK_tChungTuGhiSoChiTiet_tDanhMucTaiKhoan")
 }
 
 model tChungTuKetChuyen {
@@ -46,6 +49,7 @@ model tChungTuKetChuyen {
   cSoChungTu               String?                    @db.NVarChar(10)
   dNgayChungTu             DateTime?                  @db.DateTime
   cDienGiai                String?                    @db.NVarChar(50)
+  tDanhMucChungTu          tDanhMucChungTu?           @relation(fields: [cLoaiChungTu], references: [cMaLoaiChungTu], onDelete: NoAction, onUpdate: NoAction, map: "FK_tChungTuKetChuyen_tDanhMucChungTu")
   tChungTuKetChuyenChiTiet tChungTuKetChuyenChiTiet[]
 }
 
@@ -53,10 +57,11 @@ model tChungTuKetChuyenChiTiet {
   id                Int               @id(map: "PK__tChungTu__3213E83F0ED5588E") @default(autoincrement())
   cMaChungTu        String            @db.NVarChar(20)
   cDienGiaiChiTiet  String?           @db.NVarChar(100)
-  cTaiKhoanNo       String?           @db.NVarChar(10)
-  cTaiKhoanCo       String?           @db.NVarChar(10)
+  cTaiKhoanNo       String?           @db.NVarChar(20)
+  cTaiKhoanCo       String?           @db.NVarChar(20)
   nSoTien           Float?
   tChungTuKetChuyen tChungTuKetChuyen @relation(fields: [cMaChungTu], references: [cMaChungTu], onUpdate: NoAction, map: "FK__tChungTuK__cMaCh__6B24EA82")
+  tDanhMucTaiKhoan  tDanhMucTaiKhoan? @relation(fields: [cTaiKhoanNo], references: [cTaiKhoan], onDelete: NoAction, onUpdate: NoAction, map: "FK_tChungTuKetChuyenChiTiet_tDanhMucTaiKhoan")
 }
 
 model tChungTuNganHang {
@@ -65,38 +70,54 @@ model tChungTuNganHang {
   dNgayChungTu            DateTime?                 @db.DateTime
   cSoChungTu              String?                   @db.NVarChar(6)
   cHoTen                  String?                   @db.NVarChar(30)
-  cMaKhachHang            String?                   @db.NVarChar(10)
+  cMaKhachHang            String?                   @db.NVarChar(5)
   cTenKhachHang           String?                   @db.NVarChar(100)
   cMaSoThue               String?                   @db.NVarChar(20)
   cDienGiai               String?                   @db.NVarChar(100)
   nThu_Chi                Int?                      @db.TinyInt
+  tDanhMucChungTu         tDanhMucChungTu?          @relation(fields: [cLoaiChungTu], references: [cMaLoaiChungTu], onDelete: NoAction, onUpdate: NoAction, map: "FK_tChungTuNganHang_tDanhMucChungTu")
+  tDanhMucKhachHang       tDanhMucKhachHang?        @relation(fields: [cMaKhachHang], references: [cMaKhachHang], onDelete: NoAction, onUpdate: NoAction, map: "FK_tChungTuNganHang_tDanhMucKhachHang")
   tChungTuNganHangChiTiet tChungTuNganHangChiTiet[]
 }
 
 model tChungTuNganHangChiTiet {
-  cMaChungTu       String           @db.NVarChar(20)
-  nMaSo            Int              @id(map: "PK__tChungTu__9B1A8F8BDFF43EAC")
-  cDienGiaiChiTiet String?          @db.NVarChar(50)
+  cMaChungTu       String            @db.NVarChar(20)
+  nMaSo            Int               @id(map: "PK__tChungTu__9B1A8F8BDFF43EAC")
+  cDienGiaiChiTiet String?           @db.NVarChar(50)
   nSoTien          Float?
-  cTaiKhoanNo      String?          @db.NVarChar(10)
-  cTaiKhoanCo      String?          @db.NVarChar(10)
-  tChungTuNganHang tChungTuNganHang @relation(fields: [cMaChungTu], references: [cMaChungTu], onUpdate: NoAction, map: "FK__tChungTuN__cMaCh__6C190EBB")
+  cTaiKhoanNo      String?           @db.NVarChar(20)
+  cTaiKhoanCo      String?           @db.NVarChar(20)
+  tChungTuNganHang tChungTuNganHang  @relation(fields: [cMaChungTu], references: [cMaChungTu], onUpdate: NoAction, map: "FK__tChungTuN__cMaCh__6C190EBB")
+  tDanhMucTaiKhoan tDanhMucTaiKhoan? @relation(fields: [cTaiKhoanNo], references: [cTaiKhoan], onDelete: NoAction, onUpdate: NoAction, map: "FK_tChungTuNganHangChiTiet_tDanhMucTaiKhoan")
 }
 
 model tDanhMucChungTu {
-  cMaLoaiChungTu  String  @id(map: "PK_tDanhMucChungTu") @db.NVarChar(2)
-  cTenLoaiChungTu String  @db.NVarChar(30)
-  cTenBang        String? @db.NVarChar(30)
+  cMaLoaiChungTu       String                 @id(map: "PK_tDanhMucChungTu") @db.NVarChar(2)
+  cTenLoaiChungTu      String                 @db.NVarChar(30)
+  cTenBang             String?                @db.NVarChar(30)
+  tChungTuGhiSo        tChungTuGhiSo[]
+  tChungTuKetChuyen    tChungTuKetChuyen[]
+  tChungTuNganHang     tChungTuNganHang[]
+  tPhieuChi            tPhieuChi[]
+  tPhieuNhapHangHoa    tPhieuNhapHangHoa[]
+  tPhieuNhapHangTraLai tPhieuNhapHangTraLai[]
+  tPhieuThu            tPhieuThu[]
+  tPhieuXuatHangHoa    tPhieuXuatHangHoa[]
+  tPhieuXuatHangTraLai tPhieuXuatHangTraLai[]
 }
 
 model tDanhMucHangHoa {
-  cMaHang          String    @id(map: "PK_tDanhMucHangHoa") @db.NVarChar(8)
-  cTenHang         String?   @db.NVarChar(50)
-  cNhomHang        String?   @db.NVarChar(5)
-  cDonViTinh       String?   @db.NVarChar(10)
-  nSoLuongTonDau   Float?
-  nThanhTienTonDau Float?
-  dNgayTonDau      DateTime? @db.DateTime
+  cMaHang                     String                        @id(map: "PK_tDanhMucHangHoa") @db.NVarChar(8)
+  cTenHang                    String?                       @db.NVarChar(50)
+  cNhomHang                   String?                       @db.NVarChar(5)
+  cDonViTinh                  String?                       @db.NVarChar(10)
+  nSoLuongTonDau              Float?
+  nThanhTienTonDau            Float?
+  dNgayTonDau                 DateTime?                     @db.DateTime
+  tPhieuNhapHangHoaChiTiet    tPhieuNhapHangHoaChiTiet[]
+  tPhieuNhapHangTraLaiChiTiet tPhieuNhapHangTraLaiChiTiet[]
+  tPhieuXuatHangHoaChiTiet    tPhieuXuatHangHoaChiTiet[]
+  tPhieuXuatHangTraLaiChiTiet tPhieuXuatHangTraLaiChiTiet[]
 }
 
 model tDanhMucKhachHang {
@@ -107,90 +128,118 @@ model tDanhMucKhachHang {
   cTinhThanhPho                   String?                           @db.NVarChar(30)
   cDienThoai                      String?                           @db.NVarChar(50)
   cFax                            String?                           @db.NVarChar(50)
+  tChungTuGhiSo                   tChungTuGhiSo[]
+  tChungTuNganHang                tChungTuNganHang[]
   tDanhMucTaiKhoanCongNoKhachHang tDanhMucTaiKhoanCongNoKhachHang[]
+  tPhieuChi                       tPhieuChi[]
+  tPhieuNhapHangHoa               tPhieuNhapHangHoa[]
+  tPhieuNhapHangTraLai            tPhieuNhapHangTraLai[]
+  tPhieuThu                       tPhieuThu[]
+  tPhieuXuatHangHoa               tPhieuXuatHangHoa[]
+  tPhieuXuatHangTraLai            tPhieuXuatHangTraLai[]
 }
 
 model tDanhMucTaiKhoan {
-  cTaiKhoan    String    @id(map: "PK_tDanhMucTaiKhoan") @db.NVarChar(20)
-  cTenTaiKhoan String?   @db.NVarChar(60)
-  nSoDuNoDau   Float?
-  nSoDuCoDau   Float?
-  bCoDinhKhoan Boolean
-  cCap         String?   @db.NVarChar(1)
-  dNgaySoDu    DateTime? @db.DateTime
+  cTaiKhoan                       String                            @id(map: "PK_tDanhMucTaiKhoan") @db.NVarChar(20)
+  cTenTaiKhoan                    String?                           @db.NVarChar(60)
+  nSoDuNoDau                      Float?
+  nSoDuCoDau                      Float?
+  bCoDinhKhoan                    Boolean
+  cCap                            String?                           @db.NVarChar(1)
+  dNgaySoDu                       DateTime?                         @db.DateTime
+  tChungTuGhiSoChiTiet            tChungTuGhiSoChiTiet[]
+  tChungTuKetChuyenChiTiet        tChungTuKetChuyenChiTiet[]
+  tChungTuNganHangChiTiet         tChungTuNganHangChiTiet[]
+  tDanhMucTaiKhoanCongNoKhachHang tDanhMucTaiKhoanCongNoKhachHang[]
+  tPhieuChiChiTiet                tPhieuChiChiTiet[]
+  tPhieuNhapHangHoa               tPhieuNhapHangHoa[]
+  tPhieuNhapHangTraLai            tPhieuNhapHangTraLai[]
+  tPhieuThuChiTiet                tPhieuThuChiTiet[]
+  tPhieuXuatHangHoa               tPhieuXuatHangHoa[]
+  tPhieuXuatHangTraLai            tPhieuXuatHangTraLai[]
 }
 
 model tDanhMucTaiKhoanCongNoKhachHang {
-  cTaiKhoan         String            @db.NVarChar(5)
+  cTaiKhoan         String            @db.NVarChar(20)
   cMaKhachHang      String            @db.NVarChar(5)
   nSoDuNoDau        Float?
   nSoDuCoDau        Float?
   dNgaySoDu         DateTime?         @db.DateTime
   tDanhMucKhachHang tDanhMucKhachHang @relation(fields: [cMaKhachHang], references: [cMaKhachHang], onUpdate: NoAction, map: "FK_tDanhMucTaiKhoanCongNoKhachHang_tDanhMucKhachHang")
+  tDanhMucTaiKhoan  tDanhMucTaiKhoan  @relation(fields: [cTaiKhoan], references: [cTaiKhoan], onUpdate: NoAction, map: "FK_tDanhMucTaiKhoanCongNoKhachHang_tDanhMucTaiKhoan")
 
   @@id([cTaiKhoan, cMaKhachHang], map: "PK_tDanhMucTaiKhoanCongNoKhachHang")
 }
 
 model tPhieuChi {
-  cMaChungTu       String             @id(map: "PK__tPhieuCh__D44B84A35FA2CB0B") @db.NVarChar(20)
-  cLoaiChungTu     String?            @db.NVarChar(2)
-  cSoChungTu       String?            @db.NVarChar(6)
-  dNgayChungTu     DateTime?          @db.DateTime
-  cHoTen           String?            @db.NVarChar(30)
-  cDiaChi          String?            @db.NVarChar(50)
-  cMaKhachHang     String?            @db.NVarChar(10)
-  cTenKhachHang    String?            @db.NVarChar(100)
-  cMaSoThue        String?            @db.NVarChar(20)
-  cDienGiai        String?            @db.NVarChar(100)
-  cBieuThue        String?            @db.NVarChar(2)
-  cSoSeRi          String?            @db.NVarChar(10)
-  cSoHoaDon        String?            @db.NVarChar(10)
-  dNgayHoaDon      DateTime?          @db.DateTime
-  nThueSuat        Float?
-  cMatHang         String?            @db.NVarChar(30)
-  tPhieuChiChiTiet tPhieuChiChiTiet[]
+  cMaChungTu        String             @id(map: "PK__tPhieuCh__D44B84A35FA2CB0B") @db.NVarChar(20)
+  cLoaiChungTu      String?            @db.NVarChar(2)
+  cSoChungTu        String?            @db.NVarChar(6)
+  dNgayChungTu      DateTime?          @db.DateTime
+  cHoTen            String?            @db.NVarChar(30)
+  cDiaChi           String?            @db.NVarChar(50)
+  cMaKhachHang      String?            @db.NVarChar(5)
+  cTenKhachHang     String?            @db.NVarChar(100)
+  cMaSoThue         String?            @db.NVarChar(20)
+  cDienGiai         String?            @db.NVarChar(100)
+  cBieuThue         String?            @db.NVarChar(2)
+  cSoSeRi           String?            @db.NVarChar(10)
+  cSoHoaDon         String?            @db.NVarChar(10)
+  dNgayHoaDon       DateTime?          @db.DateTime
+  nThueSuat         Float?
+  cMatHang          String?            @db.NVarChar(30)
+  tDanhMucChungTu   tDanhMucChungTu?   @relation(fields: [cLoaiChungTu], references: [cMaLoaiChungTu], onDelete: NoAction, onUpdate: NoAction, map: "FK_tPhieuChi_tDanhMucChungTu")
+  tDanhMucKhachHang tDanhMucKhachHang? @relation(fields: [cMaKhachHang], references: [cMaKhachHang], onDelete: NoAction, onUpdate: NoAction, map: "FK_tPhieuChi_tDanhMucKhachHang")
+  tPhieuChiChiTiet  tPhieuChiChiTiet[]
 }
 
 model tPhieuChiChiTiet {
-  id               Int       @id(map: "PK__tPhieuCh__3213E83F29AA18B7") @default(autoincrement())
-  cMaChungTu       String    @db.NVarChar(20)
-  cDienGiaiChiTiet String?   @db.NVarChar(50)
+  id               Int               @id(map: "PK__tPhieuCh__3213E83F29AA18B7") @default(autoincrement())
+  cMaChungTu       String            @db.NVarChar(20)
+  cDienGiaiChiTiet String?           @db.NVarChar(50)
   nSoTien          Float?
-  cTaiKhoanNo      String?   @db.NVarChar(10)
-  cTaiKhoanCo      String?   @db.NVarChar(10)
-  tPhieuChi        tPhieuChi @relation(fields: [cMaChungTu], references: [cMaChungTu], onUpdate: NoAction, map: "FK__tPhieuChi__cMaCh__6D0D32F4")
+  cTaiKhoanNo      String?           @db.NVarChar(20)
+  cTaiKhoanCo      String?           @db.NVarChar(20)
+  tPhieuChi        tPhieuChi         @relation(fields: [cMaChungTu], references: [cMaChungTu], onUpdate: NoAction, map: "FK__tPhieuChi__cMaCh__6D0D32F4")
+  tDanhMucTaiKhoan tDanhMucTaiKhoan? @relation(fields: [cTaiKhoanNo], references: [cTaiKhoan], onDelete: NoAction, onUpdate: NoAction, map: "FK_tPhieuChiChiTiet_tDanhMucTaiKhoan")
 }
 
 model tPhieuNhapHangHoa {
-  cMaChungTu               String                     @id(map: "PK__tPhieuNh__D44B84A3A201A901") @db.NVarChar(20)
-  cLoaiChungTu             String?                    @db.NVarChar(2)
-  dNgayChungTu             DateTime?                  @db.DateTime
-  cSoChungTu               String?                    @db.NVarChar(6)
-  cMaNguoiBan              String?                    @db.NVarChar(6)
-  cTenNguoiBan             String?                    @db.NVarChar(100)
-  cMaSoThueNguoiBan        String?                    @db.NVarChar(15)
-  cTaiKhoanNo              String?                    @db.NVarChar(6)
-  cTaiKhoanNoGTGT          String?                    @db.NVarChar(6)
-  cTaiKhoanCo              String?                    @db.NVarChar(6)
-  cDienGiai                String?                    @db.NVarChar(70)
-  cSoSeRi                  String?                    @db.NVarChar(10)
-  cSoHoaDon                String?                    @db.NVarChar(10)
-  dNgayHoaDon              DateTime?                  @db.DateTime
-  nThueSuat                Float?
-  nThueGTGT                Float?
-  cMatHang                 String?                    @db.NVarChar(30)
-  tPhieuNhapHangHoaChiTiet tPhieuNhapHangHoaChiTiet[]
+  cMaChungTu                  String                        @id(map: "PK__tPhieuNh__D44B84A3A201A901") @db.NVarChar(20)
+  cLoaiChungTu                String?                       @db.NVarChar(2)
+  dNgayChungTu                DateTime?                     @db.DateTime
+  cSoChungTu                  String?                       @db.NVarChar(6)
+  cMaNguoiBan                 String?                       @db.NVarChar(5)
+  cTenNguoiBan                String?                       @db.NVarChar(100)
+  cMaSoThueNguoiBan           String?                       @db.NVarChar(15)
+  cTaiKhoanNo                 String?                       @db.NVarChar(20)
+  cTaiKhoanNoGTGT             String?                       @db.NVarChar(20)
+  cTaiKhoanCo                 String?                       @db.NVarChar(20)
+  cDienGiai                   String?                       @db.NVarChar(70)
+  cSoSeRi                     String?                       @db.NVarChar(10)
+  cSoHoaDon                   String?                       @db.NVarChar(10)
+  dNgayHoaDon                 DateTime?                     @db.DateTime
+  nThueSuat                   Float?
+  nThueGTGT                   Float?
+  cMatHang                    String?                       @db.NVarChar(30)
+  tDanhMucChungTu             tDanhMucChungTu?              @relation(fields: [cLoaiChungTu], references: [cMaLoaiChungTu], onDelete: NoAction, onUpdate: NoAction, map: "FK_tPhieuNhapHangHoa_tDanhMucChungTu")
+  tDanhMucKhachHang           tDanhMucKhachHang?            @relation(fields: [cMaNguoiBan], references: [cMaKhachHang], onDelete: NoAction, onUpdate: NoAction, map: "FK_tPhieuNhapHangHoa_tDanhMucKhachHang")
+  tDanhMucTaiKhoan            tDanhMucTaiKhoan?             @relation(fields: [cTaiKhoanNo], references: [cTaiKhoan], onDelete: NoAction, onUpdate: NoAction, map: "FK_tPhieuNhapHangHoa_tDanhMucTaiKhoan")
+  tPhieuNhapHangHoaChiTiet    tPhieuNhapHangHoaChiTiet[]
+  tPhieuXuatHangHoaChiTiet    tPhieuXuatHangHoaChiTiet[]
+  tPhieuXuatHangTraLaiChiTiet tPhieuXuatHangTraLaiChiTiet[]
 }
 
 model tPhieuNhapHangHoaChiTiet {
   cMaChungTu        String            @db.NVarChar(20)
   nMaSo             Int               @id(map: "PK__tPhieuNh__9B1A8F8BDE864C56")
-  cMaHang           String            @db.NVarChar(10)
+  cMaHang           String            @db.NVarChar(8)
   cDonViTinh        String?           @db.NVarChar(10)
   nSoLuong          Float?
   nDonGia           Float?
   nThanhTien        Float?
   tPhieuNhapHangHoa tPhieuNhapHangHoa @relation(fields: [cMaChungTu], references: [cMaChungTu], onUpdate: NoAction, map: "FK__tPhieuNha__cMaCh__6E01572D")
+  tDanhMucHangHoa   tDanhMucHangHoa   @relation(fields: [cMaHang], references: [cMaHang], onUpdate: NoAction, map: "FK_tPhieuNhapHangHoaChiTiet_tDanhMucHangHoa")
 }
 
 model tPhieuNhapHangTraLai {
@@ -199,14 +248,14 @@ model tPhieuNhapHangTraLai {
   dNgayChungTu                DateTime?                     @db.DateTime
   cSoChungTu                  String                        @db.NVarChar(6)
   cDienGiai                   String?                       @db.NVarChar(70)
-  cMaKhachHang                String?                       @db.NVarChar(10)
+  cMaKhachHang                String?                       @db.NVarChar(5)
   cTenKhachHang               String?                       @db.NVarChar(40)
   cMaSoThue                   String?                       @db.NVarChar(20)
-  cTaiKhoanNoGiaVon           String?                       @db.NVarChar(6)
-  cTaiKhoanCoGiaVon           String?                       @db.NVarChar(6)
-  cTaiKhoanNoGiaBan           String?                       @db.NVarChar(6)
-  cTaiKhoanNoGTGT             String?                       @db.NVarChar(6)
-  cTaiKhoanCoGiaBan           String?                       @db.NVarChar(6)
+  cTaiKhoanNoGiaVon           String?                       @db.NVarChar(20)
+  cTaiKhoanCoGiaVon           String?                       @db.NVarChar(20)
+  cTaiKhoanNoGiaBan           String?                       @db.NVarChar(20)
+  cTaiKhoanNoGTGT             String?                       @db.NVarChar(20)
+  cTaiKhoanCoGiaBan           String?                       @db.NVarChar(20)
   cBieuThue                   String?                       @db.NVarChar(2)
   cSoSeRi                     String?                       @db.NVarChar(10)
   cSoHoaDon                   String?                       @db.NVarChar(10)
@@ -214,13 +263,16 @@ model tPhieuNhapHangTraLai {
   nThueSuat                   Float?
   nThueGTGT                   Float?
   cMatHang                    String?                       @db.NVarChar(30)
+  tDanhMucChungTu             tDanhMucChungTu?              @relation(fields: [cLoaiChungTu], references: [cMaLoaiChungTu], onDelete: NoAction, onUpdate: NoAction, map: "FK_tPhieuNhapHangTraLai_tDanhMucChungTu")
+  tDanhMucKhachHang           tDanhMucKhachHang?            @relation(fields: [cMaKhachHang], references: [cMaKhachHang], onDelete: NoAction, onUpdate: NoAction, map: "FK_tPhieuNhapHangTraLai_tDanhMucKhachHang")
+  tDanhMucTaiKhoan            tDanhMucTaiKhoan?             @relation(fields: [cTaiKhoanNoGiaVon], references: [cTaiKhoan], onDelete: NoAction, onUpdate: NoAction, map: "FK_tPhieuNhapHangTraLai_tDanhMucTaiKhoan")
   tPhieuNhapHangTraLaiChiTiet tPhieuNhapHangTraLaiChiTiet[]
 }
 
 model tPhieuNhapHangTraLaiChiTiet {
   cMaChungTu           String               @db.NVarChar(20)
   nMaSo                Int                  @id(map: "PK__tPhieuNh__9B1A8F8B2006A51E")
-  cMaHang              String               @db.NVarChar(15)
+  cMaHang              String               @db.NVarChar(8)
   cDonViTinh           String?              @db.NVarChar(10)
   nSoLuong             Float?
   nDonGiaVon           Float?
@@ -228,37 +280,41 @@ model tPhieuNhapHangTraLaiChiTiet {
   nDonGiaBan           Float?
   nThanhTienGiaBan     Float?
   tPhieuNhapHangTraLai tPhieuNhapHangTraLai @relation(fields: [cMaChungTu], references: [cMaChungTu], onUpdate: NoAction, map: "FK__tPhieuNha__cMaCh__71D1E811")
+  tDanhMucHangHoa      tDanhMucHangHoa      @relation(fields: [cMaHang], references: [cMaHang], onUpdate: NoAction, map: "FK_tPhieuNhapHangTraLaiChiTiet_tDanhMucHangHoa")
 }
 
 model tPhieuThu {
-  cMaChungTu       String             @id(map: "PK__tPhieuTh__D44B84A38574BE7E") @db.NVarChar(20)
-  cLoaiChungTu     String?            @db.NVarChar(2)
-  dNgayChungTu     DateTime?          @db.DateTime
-  cSoChungTu       String?            @db.NVarChar(6)
-  cHoTen           String?            @db.NVarChar(30)
-  cDiaChi          String?            @db.NVarChar(50)
-  cSoChungTuGoc    Int?               @db.TinyInt
-  cMaKhachHang     String?            @db.NVarChar(10)
-  cTenKhachHang    String?            @db.NVarChar(100)
-  cMaSoThue        String?            @db.NVarChar(20)
-  cDienGiai        String?            @db.NVarChar(100)
-  cBieuThue        String?            @db.NVarChar(2)
-  cSoSeRi          String?            @db.NVarChar(10)
-  cSoHoaDon        String?            @db.NVarChar(10)
-  dNgayHoaDon      DateTime?          @db.DateTime
-  nThueSuat        Float?
-  cMatHang         String?            @db.NVarChar(30)
-  tPhieuThuChiTiet tPhieuThuChiTiet[]
+  cMaChungTu        String             @id(map: "PK__tPhieuTh__D44B84A38574BE7E") @db.NVarChar(20)
+  cLoaiChungTu      String?            @db.NVarChar(2)
+  dNgayChungTu      DateTime?          @db.DateTime
+  cSoChungTu        String?            @db.NVarChar(6)
+  cHoTen            String?            @db.NVarChar(30)
+  cDiaChi           String?            @db.NVarChar(50)
+  cSoChungTuGoc     Int?               @db.TinyInt
+  cMaKhachHang      String?            @db.NVarChar(5)
+  cTenKhachHang     String?            @db.NVarChar(100)
+  cMaSoThue         String?            @db.NVarChar(20)
+  cDienGiai         String?            @db.NVarChar(100)
+  cBieuThue         String?            @db.NVarChar(2)
+  cSoSeRi           String?            @db.NVarChar(10)
+  cSoHoaDon         String?            @db.NVarChar(10)
+  dNgayHoaDon       DateTime?          @db.DateTime
+  nThueSuat         Float?
+  cMatHang          String?            @db.NVarChar(30)
+  tDanhMucChungTu   tDanhMucChungTu?   @relation(fields: [cLoaiChungTu], references: [cMaLoaiChungTu], onDelete: NoAction, onUpdate: NoAction, map: "FK_tPhieuThu_tDanhMucChungTu")
+  tDanhMucKhachHang tDanhMucKhachHang? @relation(fields: [cMaKhachHang], references: [cMaKhachHang], onDelete: NoAction, onUpdate: NoAction, map: "FK_tPhieuThu_tDanhMucKhachHang")
+  tPhieuThuChiTiet  tPhieuThuChiTiet[]
 }
 
 model tPhieuThuChiTiet {
-  id               Int       @id(map: "PK__tPhieuTh__3213E83F6B064D0A") @default(autoincrement())
-  cMaChungTu       String    @db.NVarChar(20)
-  cDienGiaiChiTiet String?   @db.NVarChar(50)
+  id               Int               @id(map: "PK__tPhieuTh__3213E83F6B064D0A") @default(autoincrement())
+  cMaChungTu       String            @db.NVarChar(20)
+  cDienGiaiChiTiet String?           @db.NVarChar(50)
   nSoTien          Float?
-  cTaiKhoanNo      String?   @db.NVarChar(10)
-  cTaiKhoanCo      String?   @db.NVarChar(10)
-  tPhieuThu        tPhieuThu @relation(fields: [cMaChungTu], references: [cMaChungTu], onUpdate: NoAction, map: "FK__tPhieuThu__cMaCh__72C60C4A")
+  cTaiKhoanNo      String?           @db.NVarChar(20)
+  cTaiKhoanCo      String?           @db.NVarChar(20)
+  tPhieuThu        tPhieuThu         @relation(fields: [cMaChungTu], references: [cMaChungTu], onUpdate: NoAction, map: "FK__tPhieuThu__cMaCh__72C60C4A")
+  tDanhMucTaiKhoan tDanhMucTaiKhoan? @relation(fields: [cTaiKhoanNo], references: [cTaiKhoan], onDelete: NoAction, onUpdate: NoAction, map: "FK_tPhieuThuChiTiet_tDanhMucTaiKhoan")
 }
 
 model tPhieuXuatHangHoa {
@@ -266,35 +322,40 @@ model tPhieuXuatHangHoa {
   cLoaiChungTu             String?                    @db.NVarChar(2)
   dNgayChungTu             DateTime?                  @db.DateTime
   cSoChungTu               String?                    @db.NVarChar(6)
-  cMaKhachHang             String?                    @db.NVarChar(6)
+  cMaKhachHang             String?                    @db.NVarChar(5)
   cTenKhachHang            String?                    @db.NVarChar(50)
   cMaSoThue                String?                    @db.NVarChar(15)
-  cTaiKhoanNoGiaVon        String?                    @db.NVarChar(6)
-  cTaiKhoanCoGiaVon        String?                    @db.NVarChar(6)
-  cTaiKhoanNoGiaBan        String?                    @db.NVarChar(6)
-  cTaiKhoanCoGiaBan        String?                    @db.NVarChar(6)
-  cTaiKhoanCoGTGT          String?                    @db.NVarChar(6)
+  cTaiKhoanNoGiaVon        String?                    @db.NVarChar(20)
+  cTaiKhoanCoGiaVon        String?                    @db.NVarChar(20)
+  cTaiKhoanNoGiaBan        String?                    @db.NVarChar(20)
+  cTaiKhoanCoGiaBan        String?                    @db.NVarChar(20)
+  cTaiKhoanCoGTGT          String?                    @db.NVarChar(20)
   cDienGiai                String?                    @db.NVarChar(70)
   cMatHang                 String?                    @db.NVarChar(30)
   nThueSuat                Float?
   nThueGTGT                Int?
   cSoSeri                  String?                    @db.NVarChar(15)
   cSoHoaDon                String?                    @db.NVarChar(7)
+  tDanhMucChungTu          tDanhMucChungTu?           @relation(fields: [cLoaiChungTu], references: [cMaLoaiChungTu], onDelete: NoAction, onUpdate: NoAction, map: "FK_tPhieuXuatHangHoa_tDanhMucChungTu")
+  tDanhMucKhachHang        tDanhMucKhachHang?         @relation(fields: [cMaKhachHang], references: [cMaKhachHang], onDelete: NoAction, onUpdate: NoAction, map: "FK_tPhieuXuatHangHoa_tDanhMucKhachHang")
+  tDanhMucTaiKhoan         tDanhMucTaiKhoan?          @relation(fields: [cTaiKhoanNoGiaVon], references: [cTaiKhoan], onDelete: NoAction, onUpdate: NoAction, map: "FK_tPhieuXuatHangHoa_tDanhMucTaiKhoan")
   tPhieuXuatHangHoaChiTiet tPhieuXuatHangHoaChiTiet[]
 }
 
 model tPhieuXuatHangHoaChiTiet {
-  id                Int               @id(map: "PK__tPhieuXu__3213E83FCB013B66") @default(autoincrement())
-  cMaChungTu        String            @db.NVarChar(20)
-  cMaHang           String            @db.NVarChar(10)
-  cDonViTinh        String?           @db.NVarChar(10)
+  id                Int                @id(map: "PK__tPhieuXu__3213E83FCB013B66") @default(autoincrement())
+  cMaChungTu        String             @db.NVarChar(20)
+  cMaHang           String             @db.NVarChar(8)
+  cDonViTinh        String?            @db.NVarChar(10)
   nSoLuong          Float?
   nDonGiaVon        Float?
   nThanhTienGiaVon  Int?
   nDonGiaBan        Float?
   nThanhTienGiaBan  Int?
-  cMaChungTuNhap    String?           @db.NVarChar(50)
-  tPhieuXuatHangHoa tPhieuXuatHangHoa @relation(fields: [cMaChungTu], references: [cMaChungTu], onUpdate: NoAction, map: "FK__tPhieuXua__cMaCh__73BA3083")
+  cMaChungTuNhap    String?            @db.NVarChar(20)
+  tPhieuXuatHangHoa tPhieuXuatHangHoa  @relation(fields: [cMaChungTu], references: [cMaChungTu], onUpdate: NoAction, map: "FK__tPhieuXua__cMaCh__73BA3083")
+  tDanhMucHangHoa   tDanhMucHangHoa    @relation(fields: [cMaHang], references: [cMaHang], onUpdate: NoAction, map: "FK_tPhieuXuatHangHoaChiTiet_tDanhMucHangHoa")
+  tPhieuNhapHangHoa tPhieuNhapHangHoa? @relation(fields: [cMaChungTuNhap], references: [cMaChungTu], onDelete: NoAction, onUpdate: NoAction, map: "FK_tPhieuXuatHangHoaChiTiet_tPhieuNhapHangHoa")
 }
 
 model tPhieuXuatHangTraLai {
@@ -303,14 +364,14 @@ model tPhieuXuatHangTraLai {
   dNgayChungTu                DateTime?                     @db.DateTime
   cSoChungTu                  String                        @db.NVarChar(6)
   cDienGiai                   String?                       @db.NVarChar(70)
-  cMaKhachHang                String?                       @db.NVarChar(10)
+  cMaKhachHang                String?                       @db.NVarChar(5)
   cTenKhachHang               String?                       @db.NVarChar(40)
   cMaSoThue                   String?                       @db.NVarChar(20)
-  cTaiKhoanNoGiaVon           String?                       @db.NVarChar(6)
-  cTaiKhoanCoGiaVon           String?                       @db.NVarChar(6)
-  cTaiKhoanNoGiaMua           String?                       @db.NVarChar(6)
-  cTaiKhoanCoGTGT             String?                       @db.NVarChar(6)
-  cTaiKhoanCoGiaMua           String?                       @db.NVarChar(6)
+  cTaiKhoanNoGiaVon           String?                       @db.NVarChar(20)
+  cTaiKhoanCoGiaVon           String?                       @db.NVarChar(20)
+  cTaiKhoanNoGiaMua           String?                       @db.NVarChar(20)
+  cTaiKhoanCoGTGT             String?                       @db.NVarChar(20)
+  cTaiKhoanCoGiaMua           String?                       @db.NVarChar(20)
   cBieuThue                   String?                       @db.NVarChar(2)
   cSoSeRi                     String?                       @db.NVarChar(10)
   cSoHoaDon                   String?                       @db.NVarChar(10)
@@ -318,13 +379,16 @@ model tPhieuXuatHangTraLai {
   nThueSuat                   Float?
   nThueGTGT                   Float?
   cMatHang                    String?                       @db.NVarChar(30)
+  tDanhMucChungTu             tDanhMucChungTu?              @relation(fields: [cLoaiChungTu], references: [cMaLoaiChungTu], onDelete: NoAction, onUpdate: NoAction, map: "FK_tPhieuXuatHangTraLai_tDanhMucChungTu")
+  tDanhMucKhachHang           tDanhMucKhachHang?            @relation(fields: [cMaKhachHang], references: [cMaKhachHang], onDelete: NoAction, onUpdate: NoAction, map: "FK_tPhieuXuatHangTraLai_tDanhMucKhachHang")
+  tDanhMucTaiKhoan            tDanhMucTaiKhoan?             @relation(fields: [cTaiKhoanNoGiaVon], references: [cTaiKhoan], onDelete: NoAction, onUpdate: NoAction, map: "FK_tPhieuXuatHangTraLai_tDanhMucTaiKhoan")
   tPhieuXuatHangTraLaiChiTiet tPhieuXuatHangTraLaiChiTiet[]
 }
 
 model tPhieuXuatHangTraLaiChiTiet {
   cMaChungTu           String               @db.NVarChar(20)
   nMaSo                Int                  @id(map: "PK__tPhieuXu__9B1A8F8BD1077038")
-  cMaHang              String               @db.NVarChar(15)
+  cMaHang              String               @db.NVarChar(8)
   cDonViTinh           String?              @db.NVarChar(10)
   nSoLuong             Float?
   nDonGiaVon           Float?
@@ -333,6 +397,8 @@ model tPhieuXuatHangTraLaiChiTiet {
   nThanhTienGiaMua     Float?
   cMaChungTuNhap       String?              @db.NVarChar(20)
   tPhieuXuatHangTraLai tPhieuXuatHangTraLai @relation(fields: [cMaChungTu], references: [cMaChungTu], onUpdate: NoAction, map: "FK__tPhieuXua__cMaCh__74AE54BC")
+  tDanhMucHangHoa      tDanhMucHangHoa      @relation(fields: [cMaHang], references: [cMaHang], onUpdate: NoAction, map: "FK_tPhieuXuatHangTraLaiChiTiet_tDanhMucHangHoa")
+  tPhieuNhapHangHoa    tPhieuNhapHangHoa?   @relation(fields: [cMaChungTuNhap], references: [cMaChungTu], onDelete: NoAction, onUpdate: NoAction, map: "FK_tPhieuXuatHangTraLaiChiTiet_tPhieuNhapHangHoa")
 }
 
 model tTempDanhMucKhachHang {

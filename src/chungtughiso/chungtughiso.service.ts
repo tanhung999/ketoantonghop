@@ -40,7 +40,6 @@ export class ChungtughisoService {
     }
     
     async soChungTuGhiSoNext () {
-        
         return soChungTuNext((await this.getChungTuGhiSo()).chungTuGhiSoLast)
     }
 }
