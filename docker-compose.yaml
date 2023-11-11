@@ -1,33 +1,20 @@
 # we create a Docker image from source code 
-version: '3.8'
+version: '3.3'
 services:
-  dev-database:
-    image: postgres:15.4
-    container_name: dev-database
-    ports:
-      - 5434:5432 #{port in host (myPC)}: {port in container}
-    #environment variables, like: db's name, password...
+  mssql:
+    container_name: sql-server
+    image: mcr.microsoft.com/mssql/server:2017-latest
+    #image: mcr.microsoft.com/mssql/server:2017-CU11-ubuntu
+    restart: always
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: Hung@02011999
-      POSTGRES_DB: testdb
-    networks:
-      - nestjs-networks
-    # create another container for "Test"
-  test-database:
-    image: postgres:15.4
-    container_name: test-database
+      ACCEPT_EULA: "Y"
+      SA_PASSWORD: "Hung@02011999"
     ports:
-      - 5435:5432 #{port in host (myPC)}: {port in container}
-    #environment variables, like: db's name, password...
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: Hung@02011999
-      POSTGRES_DB: testdb
-    networks:
-      - nestjs-networks
-networks:
-  nestjs-networks:
+      - 1435:1433
+    volumes:
+      - my-volume:/var/opt/mssql
+volumes:
+  my-volume:
 # Create container, netword,... from "docker compose " file: 
   # -d: (detach mode) deamon/background mode
   # docker compose up -d
