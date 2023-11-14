@@ -16,4 +16,5 @@ export class PhieunhaphanghoaController {
     getSoChungTuGhiSoNext (){
         return this.phieuNhapHangHoaService.soChungTuGhiSoNext()
     }
+    
 }

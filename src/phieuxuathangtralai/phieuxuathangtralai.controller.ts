@@ -16,4 +16,8 @@ export class PhieuxuathangtralaiController {
     getSoChungTuGhiSoNext (){
         return this.phieuXuatHangTraLaiService.soChungTuGhiSoNext()
     }
+    @Get('hangHoaTraLai')
+    getHangHoaTraLai(){
+        return this.phieuXuatHangTraLaiService.hangHoaTraLai()
+    }
 }

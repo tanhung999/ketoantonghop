@@ -41,4 +41,9 @@ export class PhieuxuathangtralaiService {
     async soChungTuGhiSoNext () {
         return soChungTuNext((await this.getPhieuXuatHangTraLai()).chungTuLast)
     }
+    async hangHoaTraLai(){
+        return await this.prismaService.$queryRaw`SELECT cMaChungTuNhap,cMaHang, SUM(nSoLuong) AS 'SoLuong', SUM(nThanhTienGiaVon) AS 'ThanhTienGiaVon'
+        FROM tPhieuXuatHangTraLaiChiTiet
+        GROUP BY cMaChungTuNhap,cMaHang`
+    }
 }

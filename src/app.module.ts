@@ -9,14 +9,14 @@ import { PhieuthuchitietModule } from './phieuthuchitiet/phieuthuchitiet.module'
 import { PhieuchichitietModule } from './phieuchichitiet/phieuchichitiet.module';
 import { PhieunhaphanghoaModule } from './phieunhaphanghoa/phieunhaphanghoa.module';
 import { PhieuxuathanghoaModule } from './phieuxuathanghoa/phieuxuathanghoa.module';
-import { ChungtughisoService } from './chungtughiso/chungtughiso.service';
-import { ChungtughisoController } from './chungtughiso/chungtughiso.controller';
 import { ChungtughisoModule } from './chungtughiso/chungtughiso.module';
 import { ChungtunganhangModule } from './chungtunganhang/chungtunganhang.module';
 import { ChungtuketchuyenModule } from './chungtuketchuyen/chungtuketchuyen.module';
 import { PhieunhaphangtralaiModule } from './phieunhaphangtralai/phieunhaphangtralai.module';
 import { PhieuxuathangtralaiModule } from './phieuxuathangtralai/phieuxuathangtralai.module';
 import { ListchungtuModule } from './listchungtu/listchungtu.module';
+import { XemhangtondanhapModule } from './xemhangtondanhap/xemhangtondanhap.module';
+import { XemhangdaxuatModule } from './xemhangdaxuat/xemhangdaxuat.module';
 
 
 
@@ -36,7 +36,9 @@ import { ListchungtuModule } from './listchungtu/listchungtu.module';
             ChungtuketchuyenModule,
             PhieunhaphangtralaiModule,
             PhieuxuathangtralaiModule,
-            ListchungtuModule, 
+            ListchungtuModule,
+            XemhangtondanhapModule,
+            XemhangdaxuatModule, 
           ]
 })
 export class AppModule {}

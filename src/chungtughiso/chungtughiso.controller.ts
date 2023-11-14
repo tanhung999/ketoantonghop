@@ -15,6 +15,6 @@ export class ChungtughisoController {
     }
     @Get('sochungtunext')
     getSoChungTuGhiSoNext (){
-        return this.chungTuGhiSoService.soChungTuGhiSoNext();
+        return this.chungTuGhiSoService.soChungTuGhiSoNext()
     }
 }

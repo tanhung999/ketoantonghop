@@ -41,4 +41,5 @@ export class PhieunhaphanghoaService {
     async soChungTuGhiSoNext () {
         return soChungTuNext((await this.getPhieuNhapHangHoa()).chungTuLast)
     }
-}
+    
+  }
