@@ -39,6 +39,7 @@ export class PhieuxuathangtralaiService {
     }
     
     async soChungTuGhiSoNext () {
+        
         return soChungTuNext((await this.getPhieuXuatHangTraLai()).chungTuLast)
     }
     async hangHoaTraLai(){

@@ -38,7 +38,7 @@ import { XemhangdaxuatModule } from './xemhangdaxuat/xemhangdaxuat.module';
             PhieuxuathangtralaiModule,
             ListchungtuModule,
             XemhangtondanhapModule,
-            XemhangdaxuatModule, 
+            XemhangdaxuatModule,
           ]
 })
 export class AppModule {}

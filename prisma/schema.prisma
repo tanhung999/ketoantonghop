@@ -434,3 +434,4 @@ model tTempPhieuNhapHangHoaChiTiet {
   nDonGia    Float?
   nThanhTien Float?
 }
+

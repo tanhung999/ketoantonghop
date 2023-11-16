@@ -1,3 +1,7 @@
 export function getChungTuLasted (chungTu) {
-    return chungTu.reduce((accumulator,currentValue) =>currentValue)
+    if(chungTu.length==0 || typeof(chungTu) ==="undefined"){
+        return 0;
+    }
+    return chungTu.reduce((accumulator,currentValue) =>{return currentValue})
+    
 }

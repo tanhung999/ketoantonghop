@@ -17,7 +17,7 @@ export class PhieuthuchitietService {
     }
     async getPhieuThuBySoChungTu(soChungTu){
         const soChungTuConfig= soChungTu.replace('-','/')
-        return await this.prismaService.tPhieuThu.findMany({
+        const phieuThu= await this.prismaService.tPhieuThu.findMany({
             where: {
                 cSoChungTu: soChungTuConfig
             },
@@ -25,6 +25,14 @@ export class PhieuthuchitietService {
                 tPhieuThuChiTiet: true
             }
         })
+        let tongSoTien = 0
+        phieuThu.map(e=>{
+            e.tPhieuThuChiTiet.map(obj =>{
+                tongSoTien+=obj.nSoTien
+            })
+        })
+        phieuThu[''].TongSoTien = tongSoTien
+        console.log(phieuThu)
     }
     async getChungTuPhieuThu (){
         const listChungTu =  await this.prismaService.tPhieuThu.findMany({
