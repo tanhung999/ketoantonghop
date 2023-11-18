@@ -1,4 +1,4 @@
-import { Controller,Get, Param } from '@nestjs/common';
+import { Controller,Get, Param, Post } from '@nestjs/common';
 import { ChungtughisoService } from './chungtughiso.service';
 
 
@@ -16,5 +16,9 @@ export class ChungtughisoController {
     @Get('sochungtunext')
     getSoChungTuGhiSoNext (){
         return this.chungTuGhiSoService.soChungTuGhiSoNext()
+    }
+    @Post('newChungTuGhiSo')
+    createNewChungTuGhiSo () {
+        return this.chungTuGhiSoService
     }
 }

@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { soChungTuNext } from '../getChungTuNext';
-import { dNgayChungTu, selectChungTu } from '../select';
+import {  cSoChungTu, dNgayChungTu, selectChungTu } from '../select';
 import { getChungTuLasted } from '../getchungtulasted';
 
 @Injectable()
@@ -31,7 +31,11 @@ export class ChungtuketchuyenService {
     async getChungTuKetChuyen(){
         const listChungTu = await this.prismaService.tChungTuKetChuyen.findMany({
             select :selectChungTu,
-            orderBy: {dNgayChungTu}
+            orderBy: [
+                {dNgayChungTu},
+                
+                {cSoChungTu}
+            ]
         })
         const chungTuLast = getChungTuLasted(listChungTu)
         const chungTu = {
