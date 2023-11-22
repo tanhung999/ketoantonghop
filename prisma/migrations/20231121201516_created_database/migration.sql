@@ -6,13 +6,13 @@ BEGIN TRAN;
 CREATE TABLE [dbo].[tChungTuGhiSo] (
     [cMaChungTu] NVARCHAR(20) NOT NULL,
     [cLoaiChungTu] NVARCHAR(2),
-    [cSoChungTu] NVARCHAR(6),
+    [cSoChungTu] NVARCHAR(6) NOT NULL,
     [dNgayChungTu] DATETIME,
     [cHoTen] NVARCHAR(30),
-    [cMaKhachHangNo] NVARCHAR(10),
+    [cMaKhachHangNo] NVARCHAR(5),
     [cTenKhachHangNo] NVARCHAR(100),
     [cMaSoThueNo] NVARCHAR(20),
-    [cMaKhachHangCo] NVARCHAR(10),
+    [cMaKhachHangCo] NVARCHAR(5),
     [cTenKhachHangCo] NVARCHAR(100),
     [cMaSoThueCo] NVARCHAR(20),
     [cDienGiai] NVARCHAR(100),
@@ -24,17 +24,6 @@ CREATE TABLE [dbo].[tChungTuGhiSo] (
     [nThueGTGT] FLOAT(53),
     [cMatHang] NVARCHAR(30),
     CONSTRAINT [PK__tChungTu__D44B84A36C905F96] PRIMARY KEY CLUSTERED ([cMaChungTu])
-);
-
--- CreateTable
-CREATE TABLE [dbo].[tChungTuGhiSoChiTiet] (
-    [cMaChungTu] NVARCHAR(20) NOT NULL,
-    [nMaSo] INT NOT NULL,
-    [cDienGiaiChiTiet] NVARCHAR(50),
-    [nSoTien] FLOAT(53),
-    [cTaiKhoanNo] NVARCHAR(10),
-    [cTaiKhoanCo] NVARCHAR(10),
-    CONSTRAINT [PK__tChungTu__9B1A8F8B0CFAAE93] PRIMARY KEY CLUSTERED ([nMaSo])
 );
 
 -- CreateTable
@@ -52,8 +41,8 @@ CREATE TABLE [dbo].[tChungTuKetChuyenChiTiet] (
     [id] INT NOT NULL IDENTITY(1,1),
     [cMaChungTu] NVARCHAR(20) NOT NULL,
     [cDienGiaiChiTiet] NVARCHAR(100),
-    [cTaiKhoanNo] NVARCHAR(10),
-    [cTaiKhoanCo] NVARCHAR(10),
+    [cTaiKhoanNo] NVARCHAR(20),
+    [cTaiKhoanCo] NVARCHAR(20),
     [nSoTien] FLOAT(53),
     CONSTRAINT [PK__tChungTu__3213E83F0ED5588E] PRIMARY KEY CLUSTERED ([id])
 );
@@ -65,7 +54,7 @@ CREATE TABLE [dbo].[tChungTuNganHang] (
     [dNgayChungTu] DATETIME,
     [cSoChungTu] NVARCHAR(6),
     [cHoTen] NVARCHAR(30),
-    [cMaKhachHang] NVARCHAR(10),
+    [cMaKhachHang] NVARCHAR(5),
     [cTenKhachHang] NVARCHAR(100),
     [cMaSoThue] NVARCHAR(20),
     [cDienGiai] NVARCHAR(100),
@@ -79,8 +68,8 @@ CREATE TABLE [dbo].[tChungTuNganHangChiTiet] (
     [nMaSo] INT NOT NULL,
     [cDienGiaiChiTiet] NVARCHAR(50),
     [nSoTien] FLOAT(53),
-    [cTaiKhoanNo] NVARCHAR(10),
-    [cTaiKhoanCo] NVARCHAR(10),
+    [cTaiKhoanNo] NVARCHAR(20),
+    [cTaiKhoanCo] NVARCHAR(20),
     CONSTRAINT [PK__tChungTu__9B1A8F8BDFF43EAC] PRIMARY KEY CLUSTERED ([nMaSo])
 );
 
@@ -130,7 +119,7 @@ CREATE TABLE [dbo].[tDanhMucTaiKhoan] (
 
 -- CreateTable
 CREATE TABLE [dbo].[tDanhMucTaiKhoanCongNoKhachHang] (
-    [cTaiKhoan] NVARCHAR(5) NOT NULL,
+    [cTaiKhoan] NVARCHAR(20) NOT NULL,
     [cMaKhachHang] NVARCHAR(5) NOT NULL,
     [nSoDuNoDau] FLOAT(53),
     [nSoDuCoDau] FLOAT(53),
@@ -146,7 +135,7 @@ CREATE TABLE [dbo].[tPhieuChi] (
     [dNgayChungTu] DATETIME,
     [cHoTen] NVARCHAR(30),
     [cDiaChi] NVARCHAR(50),
-    [cMaKhachHang] NVARCHAR(10),
+    [cMaKhachHang] NVARCHAR(5),
     [cTenKhachHang] NVARCHAR(100),
     [cMaSoThue] NVARCHAR(20),
     [cDienGiai] NVARCHAR(100),
@@ -165,8 +154,8 @@ CREATE TABLE [dbo].[tPhieuChiChiTiet] (
     [cMaChungTu] NVARCHAR(20) NOT NULL,
     [cDienGiaiChiTiet] NVARCHAR(50),
     [nSoTien] FLOAT(53),
-    [cTaiKhoanNo] NVARCHAR(10),
-    [cTaiKhoanCo] NVARCHAR(10),
+    [cTaiKhoanNo] NVARCHAR(20),
+    [cTaiKhoanCo] NVARCHAR(20),
     CONSTRAINT [PK__tPhieuCh__3213E83F29AA18B7] PRIMARY KEY CLUSTERED ([id])
 );
 
@@ -176,12 +165,12 @@ CREATE TABLE [dbo].[tPhieuNhapHangHoa] (
     [cLoaiChungTu] NVARCHAR(2),
     [dNgayChungTu] DATETIME,
     [cSoChungTu] NVARCHAR(6),
-    [cMaNguoiBan] NVARCHAR(6),
+    [cMaNguoiBan] NVARCHAR(5),
     [cTenNguoiBan] NVARCHAR(100),
     [cMaSoThueNguoiBan] NVARCHAR(15),
-    [cTaiKhoanNo] NVARCHAR(6),
-    [cTaiKhoanNoGTGT] NVARCHAR(6),
-    [cTaiKhoanCo] NVARCHAR(6),
+    [cTaiKhoanNo] NVARCHAR(20),
+    [cTaiKhoanNoGTGT] NVARCHAR(20),
+    [cTaiKhoanCo] NVARCHAR(20),
     [cDienGiai] NVARCHAR(70),
     [cSoSeRi] NVARCHAR(10),
     [cSoHoaDon] NVARCHAR(10),
@@ -196,7 +185,7 @@ CREATE TABLE [dbo].[tPhieuNhapHangHoa] (
 CREATE TABLE [dbo].[tPhieuNhapHangHoaChiTiet] (
     [cMaChungTu] NVARCHAR(20) NOT NULL,
     [nMaSo] INT NOT NULL,
-    [cMaHang] NVARCHAR(10) NOT NULL,
+    [cMaHang] NVARCHAR(8) NOT NULL,
     [cDonViTinh] NVARCHAR(10),
     [nSoLuong] FLOAT(53),
     [nDonGia] FLOAT(53),
@@ -211,14 +200,14 @@ CREATE TABLE [dbo].[tPhieuNhapHangTraLai] (
     [dNgayChungTu] DATETIME,
     [cSoChungTu] NVARCHAR(6) NOT NULL,
     [cDienGiai] NVARCHAR(70),
-    [cMaKhachHang] NVARCHAR(10),
+    [cMaKhachHang] NVARCHAR(5),
     [cTenKhachHang] NVARCHAR(40),
     [cMaSoThue] NVARCHAR(20),
-    [cTaiKhoanNoGiaVon] NVARCHAR(6),
-    [cTaiKhoanCoGiaVon] NVARCHAR(6),
-    [cTaiKhoanNoGiaBan] NVARCHAR(6),
-    [cTaiKhoanNoGTGT] NVARCHAR(6),
-    [cTaiKhoanCoGiaBan] NVARCHAR(6),
+    [cTaiKhoanNoGiaVon] NVARCHAR(20),
+    [cTaiKhoanCoGiaVon] NVARCHAR(20),
+    [cTaiKhoanNoGiaBan] NVARCHAR(20),
+    [cTaiKhoanNoGTGT] NVARCHAR(20),
+    [cTaiKhoanCoGiaBan] NVARCHAR(20),
     [cBieuThue] NVARCHAR(2),
     [cSoSeRi] NVARCHAR(10),
     [cSoHoaDon] NVARCHAR(10),
@@ -233,7 +222,7 @@ CREATE TABLE [dbo].[tPhieuNhapHangTraLai] (
 CREATE TABLE [dbo].[tPhieuNhapHangTraLaiChiTiet] (
     [cMaChungTu] NVARCHAR(20) NOT NULL,
     [nMaSo] INT NOT NULL,
-    [cMaHang] NVARCHAR(15) NOT NULL,
+    [cMaHang] NVARCHAR(8) NOT NULL,
     [cDonViTinh] NVARCHAR(10),
     [nSoLuong] FLOAT(53),
     [nDonGiaVon] FLOAT(53),
@@ -252,7 +241,7 @@ CREATE TABLE [dbo].[tPhieuThu] (
     [cHoTen] NVARCHAR(30),
     [cDiaChi] NVARCHAR(50),
     [cSoChungTuGoc] TINYINT,
-    [cMaKhachHang] NVARCHAR(10),
+    [cMaKhachHang] NVARCHAR(5),
     [cTenKhachHang] NVARCHAR(100),
     [cMaSoThue] NVARCHAR(20),
     [cDienGiai] NVARCHAR(100),
@@ -271,8 +260,8 @@ CREATE TABLE [dbo].[tPhieuThuChiTiet] (
     [cMaChungTu] NVARCHAR(20) NOT NULL,
     [cDienGiaiChiTiet] NVARCHAR(50),
     [nSoTien] FLOAT(53),
-    [cTaiKhoanNo] NVARCHAR(10),
-    [cTaiKhoanCo] NVARCHAR(10),
+    [cTaiKhoanNo] NVARCHAR(20),
+    [cTaiKhoanCo] NVARCHAR(20),
     CONSTRAINT [PK__tPhieuTh__3213E83F6B064D0A] PRIMARY KEY CLUSTERED ([id])
 );
 
@@ -282,14 +271,14 @@ CREATE TABLE [dbo].[tPhieuXuatHangHoa] (
     [cLoaiChungTu] NVARCHAR(2),
     [dNgayChungTu] DATETIME,
     [cSoChungTu] NVARCHAR(6),
-    [cMaKhachHang] NVARCHAR(6),
+    [cMaKhachHang] NVARCHAR(5),
     [cTenKhachHang] NVARCHAR(50),
     [cMaSoThue] NVARCHAR(15),
-    [cTaiKhoanNoGiaVon] NVARCHAR(6),
-    [cTaiKhoanCoGiaVon] NVARCHAR(6),
-    [cTaiKhoanNoGiaBan] NVARCHAR(6),
-    [cTaiKhoanCoGiaBan] NVARCHAR(6),
-    [cTaiKhoanCoGTGT] NVARCHAR(6),
+    [cTaiKhoanNoGiaVon] NVARCHAR(20),
+    [cTaiKhoanCoGiaVon] NVARCHAR(20),
+    [cTaiKhoanNoGiaBan] NVARCHAR(20),
+    [cTaiKhoanCoGiaBan] NVARCHAR(20),
+    [cTaiKhoanCoGTGT] NVARCHAR(20),
     [cDienGiai] NVARCHAR(70),
     [cMatHang] NVARCHAR(30),
     [nThueSuat] FLOAT(53),
@@ -303,14 +292,14 @@ CREATE TABLE [dbo].[tPhieuXuatHangHoa] (
 CREATE TABLE [dbo].[tPhieuXuatHangHoaChiTiet] (
     [id] INT NOT NULL IDENTITY(1,1),
     [cMaChungTu] NVARCHAR(20) NOT NULL,
-    [cMaHang] NVARCHAR(10) NOT NULL,
+    [cMaHang] NVARCHAR(8) NOT NULL,
     [cDonViTinh] NVARCHAR(10),
     [nSoLuong] FLOAT(53),
     [nDonGiaVon] FLOAT(53),
     [nThanhTienGiaVon] INT,
     [nDonGiaBan] FLOAT(53),
     [nThanhTienGiaBan] INT,
-    [cMaChungTuNhap] NVARCHAR(50),
+    [cMaChungTuNhap] NVARCHAR(20),
     CONSTRAINT [PK__tPhieuXu__3213E83FCB013B66] PRIMARY KEY CLUSTERED ([id])
 );
 
@@ -321,14 +310,14 @@ CREATE TABLE [dbo].[tPhieuXuatHangTraLai] (
     [dNgayChungTu] DATETIME,
     [cSoChungTu] NVARCHAR(6) NOT NULL,
     [cDienGiai] NVARCHAR(70),
-    [cMaKhachHang] NVARCHAR(10),
+    [cMaKhachHang] NVARCHAR(5),
     [cTenKhachHang] NVARCHAR(40),
     [cMaSoThue] NVARCHAR(20),
-    [cTaiKhoanNoGiaVon] NVARCHAR(6),
-    [cTaiKhoanCoGiaVon] NVARCHAR(6),
-    [cTaiKhoanNoGiaMua] NVARCHAR(6),
-    [cTaiKhoanCoGTGT] NVARCHAR(6),
-    [cTaiKhoanCoGiaMua] NVARCHAR(6),
+    [cTaiKhoanNoGiaVon] NVARCHAR(20),
+    [cTaiKhoanCoGiaVon] NVARCHAR(20),
+    [cTaiKhoanNoGiaMua] NVARCHAR(20),
+    [cTaiKhoanCoGTGT] NVARCHAR(20),
+    [cTaiKhoanCoGiaMua] NVARCHAR(20),
     [cBieuThue] NVARCHAR(2),
     [cSoSeRi] NVARCHAR(10),
     [cSoHoaDon] NVARCHAR(10),
@@ -343,7 +332,7 @@ CREATE TABLE [dbo].[tPhieuXuatHangTraLai] (
 CREATE TABLE [dbo].[tPhieuXuatHangTraLaiChiTiet] (
     [cMaChungTu] NVARCHAR(20) NOT NULL,
     [nMaSo] INT NOT NULL,
-    [cMaHang] NVARCHAR(15) NOT NULL,
+    [cMaHang] NVARCHAR(8) NOT NULL,
     [cDonViTinh] NVARCHAR(10),
     [nSoLuong] FLOAT(53),
     [nDonGiaVon] FLOAT(53),
@@ -401,34 +390,100 @@ CREATE TABLE [dbo].[tTempPhieuNhapHangHoaChiTiet] (
 );
 
 -- AddForeignKey
-ALTER TABLE [dbo].[tChungTuGhiSoChiTiet] ADD CONSTRAINT [FK__tChungTuG__cMaCh__6A30C649] FOREIGN KEY ([cMaChungTu]) REFERENCES [dbo].[tChungTuGhiSo]([cMaChungTu]) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
--- AddForeignKey
 ALTER TABLE [dbo].[tChungTuKetChuyenChiTiet] ADD CONSTRAINT [FK__tChungTuK__cMaCh__6B24EA82] FOREIGN KEY ([cMaChungTu]) REFERENCES [dbo].[tChungTuKetChuyen]([cMaChungTu]) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 -- AddForeignKey
 ALTER TABLE [dbo].[tChungTuNganHangChiTiet] ADD CONSTRAINT [FK__tChungTuN__cMaCh__6C190EBB] FOREIGN KEY ([cMaChungTu]) REFERENCES [dbo].[tChungTuNganHang]([cMaChungTu]) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 -- AddForeignKey
+ALTER TABLE [dbo].[tChungTuNganHangChiTiet] ADD CONSTRAINT [FK_tChungTuNganHangChiTiet_tDanhMucTaiKhoan] FOREIGN KEY ([cTaiKhoanNo]) REFERENCES [dbo].[tDanhMucTaiKhoan]([cTaiKhoan]) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- AddForeignKey
 ALTER TABLE [dbo].[tDanhMucTaiKhoanCongNoKhachHang] ADD CONSTRAINT [FK_tDanhMucTaiKhoanCongNoKhachHang_tDanhMucKhachHang] FOREIGN KEY ([cMaKhachHang]) REFERENCES [dbo].[tDanhMucKhachHang]([cMaKhachHang]) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- AddForeignKey
+ALTER TABLE [dbo].[tDanhMucTaiKhoanCongNoKhachHang] ADD CONSTRAINT [FK_tDanhMucTaiKhoanCongNoKhachHang_tDanhMucTaiKhoan] FOREIGN KEY ([cTaiKhoan]) REFERENCES [dbo].[tDanhMucTaiKhoan]([cTaiKhoan]) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- AddForeignKey
+ALTER TABLE [dbo].[tPhieuChi] ADD CONSTRAINT [FK_tPhieuChi_tDanhMucChungTu] FOREIGN KEY ([cLoaiChungTu]) REFERENCES [dbo].[tDanhMucChungTu]([cMaLoaiChungTu]) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- AddForeignKey
+ALTER TABLE [dbo].[tPhieuChi] ADD CONSTRAINT [FK_tPhieuChi_tDanhMucKhachHang] FOREIGN KEY ([cMaKhachHang]) REFERENCES [dbo].[tDanhMucKhachHang]([cMaKhachHang]) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 -- AddForeignKey
 ALTER TABLE [dbo].[tPhieuChiChiTiet] ADD CONSTRAINT [FK__tPhieuChi__cMaCh__6D0D32F4] FOREIGN KEY ([cMaChungTu]) REFERENCES [dbo].[tPhieuChi]([cMaChungTu]) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 -- AddForeignKey
+ALTER TABLE [dbo].[tPhieuChiChiTiet] ADD CONSTRAINT [FK_tPhieuChiChiTiet_tDanhMucTaiKhoan] FOREIGN KEY ([cTaiKhoanNo]) REFERENCES [dbo].[tDanhMucTaiKhoan]([cTaiKhoan]) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- AddForeignKey
+ALTER TABLE [dbo].[tPhieuNhapHangHoa] ADD CONSTRAINT [FK_tPhieuNhapHangHoa_tDanhMucChungTu] FOREIGN KEY ([cLoaiChungTu]) REFERENCES [dbo].[tDanhMucChungTu]([cMaLoaiChungTu]) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- AddForeignKey
+ALTER TABLE [dbo].[tPhieuNhapHangHoa] ADD CONSTRAINT [FK_tPhieuNhapHangHoa_tDanhMucKhachHang] FOREIGN KEY ([cMaNguoiBan]) REFERENCES [dbo].[tDanhMucKhachHang]([cMaKhachHang]) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- AddForeignKey
 ALTER TABLE [dbo].[tPhieuNhapHangHoaChiTiet] ADD CONSTRAINT [FK__tPhieuNha__cMaCh__6E01572D] FOREIGN KEY ([cMaChungTu]) REFERENCES [dbo].[tPhieuNhapHangHoa]([cMaChungTu]) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- AddForeignKey
+ALTER TABLE [dbo].[tPhieuNhapHangHoaChiTiet] ADD CONSTRAINT [FK_tPhieuNhapHangHoaChiTiet_tDanhMucHangHoa] FOREIGN KEY ([cMaHang]) REFERENCES [dbo].[tDanhMucHangHoa]([cMaHang]) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- AddForeignKey
+ALTER TABLE [dbo].[tPhieuNhapHangTraLai] ADD CONSTRAINT [FK_tPhieuNhapHangTraLai_tDanhMucChungTu] FOREIGN KEY ([cLoaiChungTu]) REFERENCES [dbo].[tDanhMucChungTu]([cMaLoaiChungTu]) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- AddForeignKey
+ALTER TABLE [dbo].[tPhieuNhapHangTraLai] ADD CONSTRAINT [FK_tPhieuNhapHangTraLai_tDanhMucKhachHang] FOREIGN KEY ([cMaKhachHang]) REFERENCES [dbo].[tDanhMucKhachHang]([cMaKhachHang]) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- AddForeignKey
+ALTER TABLE [dbo].[tPhieuNhapHangTraLai] ADD CONSTRAINT [FK_tPhieuNhapHangTraLai_tDanhMucTaiKhoan] FOREIGN KEY ([cTaiKhoanNoGiaVon]) REFERENCES [dbo].[tDanhMucTaiKhoan]([cTaiKhoan]) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 -- AddForeignKey
 ALTER TABLE [dbo].[tPhieuNhapHangTraLaiChiTiet] ADD CONSTRAINT [FK__tPhieuNha__cMaCh__71D1E811] FOREIGN KEY ([cMaChungTu]) REFERENCES [dbo].[tPhieuNhapHangTraLai]([cMaChungTu]) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 -- AddForeignKey
+ALTER TABLE [dbo].[tPhieuNhapHangTraLaiChiTiet] ADD CONSTRAINT [FK_tPhieuNhapHangTraLaiChiTiet_tDanhMucHangHoa] FOREIGN KEY ([cMaHang]) REFERENCES [dbo].[tDanhMucHangHoa]([cMaHang]) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- AddForeignKey
+ALTER TABLE [dbo].[tPhieuThu] ADD CONSTRAINT [FK_tPhieuThu_tDanhMucChungTu] FOREIGN KEY ([cLoaiChungTu]) REFERENCES [dbo].[tDanhMucChungTu]([cMaLoaiChungTu]) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- AddForeignKey
+ALTER TABLE [dbo].[tPhieuThu] ADD CONSTRAINT [FK_tPhieuThu_tDanhMucKhachHang] FOREIGN KEY ([cMaKhachHang]) REFERENCES [dbo].[tDanhMucKhachHang]([cMaKhachHang]) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- AddForeignKey
 ALTER TABLE [dbo].[tPhieuThuChiTiet] ADD CONSTRAINT [FK__tPhieuThu__cMaCh__72C60C4A] FOREIGN KEY ([cMaChungTu]) REFERENCES [dbo].[tPhieuThu]([cMaChungTu]) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- AddForeignKey
+ALTER TABLE [dbo].[tPhieuThuChiTiet] ADD CONSTRAINT [FK_tPhieuThuChiTiet_tDanhMucTaiKhoan] FOREIGN KEY ([cTaiKhoanNo]) REFERENCES [dbo].[tDanhMucTaiKhoan]([cTaiKhoan]) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- AddForeignKey
+ALTER TABLE [dbo].[tPhieuXuatHangHoa] ADD CONSTRAINT [FK_tPhieuXuatHangHoa_tDanhMucChungTu] FOREIGN KEY ([cLoaiChungTu]) REFERENCES [dbo].[tDanhMucChungTu]([cMaLoaiChungTu]) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- AddForeignKey
+ALTER TABLE [dbo].[tPhieuXuatHangHoa] ADD CONSTRAINT [FK_tPhieuXuatHangHoa_tDanhMucKhachHang] FOREIGN KEY ([cMaKhachHang]) REFERENCES [dbo].[tDanhMucKhachHang]([cMaKhachHang]) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 -- AddForeignKey
 ALTER TABLE [dbo].[tPhieuXuatHangHoaChiTiet] ADD CONSTRAINT [FK__tPhieuXua__cMaCh__73BA3083] FOREIGN KEY ([cMaChungTu]) REFERENCES [dbo].[tPhieuXuatHangHoa]([cMaChungTu]) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 -- AddForeignKey
+ALTER TABLE [dbo].[tPhieuXuatHangHoaChiTiet] ADD CONSTRAINT [FK_tPhieuXuatHangHoaChiTiet_tDanhMucHangHoa] FOREIGN KEY ([cMaHang]) REFERENCES [dbo].[tDanhMucHangHoa]([cMaHang]) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- AddForeignKey
+ALTER TABLE [dbo].[tPhieuXuatHangTraLai] ADD CONSTRAINT [FK_tPhieuXuatHangTraLai_tDanhMucChungTu] FOREIGN KEY ([cLoaiChungTu]) REFERENCES [dbo].[tDanhMucChungTu]([cMaLoaiChungTu]) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- AddForeignKey
+ALTER TABLE [dbo].[tPhieuXuatHangTraLai] ADD CONSTRAINT [FK_tPhieuXuatHangTraLai_tDanhMucKhachHang] FOREIGN KEY ([cMaKhachHang]) REFERENCES [dbo].[tDanhMucKhachHang]([cMaKhachHang]) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- AddForeignKey
+ALTER TABLE [dbo].[tPhieuXuatHangTraLai] ADD CONSTRAINT [FK_tPhieuXuatHangTraLai_tDanhMucTaiKhoan] FOREIGN KEY ([cTaiKhoanNoGiaVon]) REFERENCES [dbo].[tDanhMucTaiKhoan]([cTaiKhoan]) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- AddForeignKey
 ALTER TABLE [dbo].[tPhieuXuatHangTraLaiChiTiet] ADD CONSTRAINT [FK__tPhieuXua__cMaCh__74AE54BC] FOREIGN KEY ([cMaChungTu]) REFERENCES [dbo].[tPhieuXuatHangTraLai]([cMaChungTu]) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- AddForeignKey
+ALTER TABLE [dbo].[tPhieuXuatHangTraLaiChiTiet] ADD CONSTRAINT [FK_tPhieuXuatHangTraLaiChiTiet_tDanhMucHangHoa] FOREIGN KEY ([cMaHang]) REFERENCES [dbo].[tDanhMucHangHoa]([cMaHang]) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- AddForeignKey
+ALTER TABLE [dbo].[tPhieuXuatHangTraLaiChiTiet] ADD CONSTRAINT [FK_tPhieuXuatHangTraLaiChiTiet_tPhieuNhapHangHoa] FOREIGN KEY ([cMaChungTuNhap]) REFERENCES [dbo].[tPhieuNhapHangHoa]([cMaChungTu]) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 COMMIT TRAN;
 

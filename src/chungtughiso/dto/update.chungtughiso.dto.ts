@@ -1,22 +1,21 @@
-import {  IsDate, IsNotEmpty, IsOptional, IsString,} from "class-validator";
+import { IsDate, IsNotEmpty, IsOptional, IsString } from "class-validator";
 import { IsFloat } from "./decorator.dto";
-
-export class InsertChungTuGhiSoDTO {
+export class UpdateChungTuGhiSoDTO {
     @IsString()
-    @IsNotEmpty()
-    cMaChungTu: string
-
-    @IsString()
-    @IsNotEmpty()
-    cLoaiChungTu: string
+    @IsOptional()
+    cMaChungTu?: string
 
     @IsString()
-    @IsNotEmpty()
-    cSoChungTu: string
+    @IsOptional()
+    cLoaiChungTu?: string
+
+    @IsString()
+    @IsOptional()
+    cSoChungTu?: string
 
     @IsDate()
-    @IsNotEmpty()
-    dNgayChungTu: Date
+    @IsOptional()
+    dNgayChungTu?: Date
 
     @IsString()
     @IsOptional()
@@ -78,20 +77,5 @@ export class InsertChungTuGhiSoDTO {
     @IsOptional()
     cMatHang?: string
 
-    @IsString()
-    @IsNotEmpty()
-    cDienGiaiChiTiet: string
-
-    @IsFloat()
-    @IsNotEmpty()
-    nSoTien: number
-
-    @IsString()
-    @IsNotEmpty()
-    cTaiKhoanNo: string
-
-    @IsString()
-    @IsNotEmpty()
-    cTaiKhoanCo: string
-
+    
 }
