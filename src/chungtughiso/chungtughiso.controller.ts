@@ -32,7 +32,6 @@ export class ChungtughisoController {
         chungTuGhiSoData: UpdateChungTuGhiSoDTO,
         chungTuGhiSoChiTietData: UpdateChungTuGhiSoChiTietDTO
        }
-       console.log(maso)
        if(maso === undefined || chungTuGhiSoChiTietData===undefined ) {
            return this.chungTuGhiSoService.updatedChungTuGhiSo(machungtu,chungTuGhiSoData)
        } else if (chungTuGhiSoData === undefined) {

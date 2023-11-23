@@ -47,4 +47,9 @@ export class ChungtuketchuyenService {
     async soChungTuGhiSoNext () {
         return soChungTuNext((await this.getChungTuKetChuyen()).chungTuLast)
     }
+    async createdChungTuKetChuyen(){
+        // return await this.prismaService.tChungTuKetChuyen.create({
+
+        // })
+    }
 }

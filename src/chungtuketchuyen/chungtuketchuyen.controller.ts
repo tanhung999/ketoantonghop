@@ -1,4 +1,4 @@
-import { Controller,Get, Param } from '@nestjs/common';
+import { Controller,Get, Param, Post } from '@nestjs/common';
 import { ChungtuketchuyenService } from './chungtuketchuyen.service';
 
 @Controller('chungtuketchuyen')
@@ -8,12 +8,16 @@ export class ChungtuketchuyenController {
     getAll(){
         return this.chungTuKetChuyenService.getAll()
     }
-    @Get('/bysochungtu/:sochungtu')
-    getChungTuKetChuyenByMaChungTu(@Param('sochungtu') maChungTu: string){
+    @Get('/bymachungtu/:machungtu')
+    getChungTuKetChuyenByMaChungTu(@Param('machungtu') maChungTu: string){
         return this.chungTuKetChuyenService.getChungTuKetChuyenByMaChungTu(maChungTu)
     }
     @Get('sochungtunext')
     getSoChungTuGhiSoNext (){
         return this.chungTuKetChuyenService.soChungTuGhiSoNext()
+    }
+    @Post('createchungtuketchuyen')
+    createdChungTuKetChuyen(){
+        return this.chungTuKetChuyenService 
     }
 }
