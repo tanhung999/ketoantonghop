@@ -1,5 +1,6 @@
-import { Controller,Get, Param, Post } from '@nestjs/common';
+import { Body, Controller,Get, Param, Post } from '@nestjs/common';
 import { ChungtuketchuyenService } from './chungtuketchuyen.service';
+import { InsertChungTuKetChuyenDTO, InsertChungTuKetChuyenChiTietDTO } from './dto';
 
 @Controller('chungtuketchuyen')
 export class ChungtuketchuyenController {
@@ -17,7 +18,13 @@ export class ChungtuketchuyenController {
         return this.chungTuKetChuyenService.soChungTuGhiSoNext()
     }
     @Post('createchungtuketchuyen')
-    createdChungTuKetChuyen(){
-        return this.chungTuKetChuyenService 
+    createdChungTuKetChuyen(
+        @Body() insertChungTu : any
+    ){
+        const {chungTuKetChuyenData,ketChuyenChiTietData} = insertChungTu as {
+            chungTuKetChuyenData: InsertChungTuKetChuyenDTO,
+            ketChuyenChiTietData: InsertChungTuKetChuyenChiTietDTO
+        }
+        return this.chungTuKetChuyenService.createdChungTuKetChuyen(chungTuKetChuyenData,ketChuyenChiTietData)
     }
 }
