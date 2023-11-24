@@ -1,4 +1,4 @@
-import { Body, Controller,Get, Param, ParseIntPipe, Patch, Post, Query } from '@nestjs/common';
+import { Body, Controller,Delete,Get, Param, ParseIntPipe, Patch, Post, Query } from '@nestjs/common';
 import { ChungtuketchuyenService } from './chungtuketchuyen.service';
 import { InsertChungTuKetChuyenDTO, InsertChungTuKetChuyenChiTietDTO, UpdateChungTuKetChuyenDTO, UpdateChungTuKetChuyenChiTietDTO } from './dto';
 
@@ -39,10 +39,16 @@ export class ChungtuketchuyenController {
         const chungTuKetChuyenAfterUpdate= this.chungTuKetChuyenService.updateChungTuKetChuyen(updateChungTuKetChuyenData,maChungTu)
         const ketChuyenChiTietAfterUpdate = this.chungTuKetChuyenService.updateChungTuKetChuyenChiTiet(maChungTu,updateChungTuKetChuyenChiTietData,id)
         return {
+            message: "Updated Successfully",
             chungTuKetChuyenAfterUpdate,
             ketChuyenChiTietAfterUpdate
         }
     }   
-
+    @Delete('/deletedchungtuketchuyen/:bymachungtu')
+    deleteChungTuKetChuyen(
+        @Param('bymachungtu') maChungTu:string
+    ){
+        return this.chungTuKetChuyenService.deleteChungTuKetChuyen(maChungTu)
+    }
     
 }

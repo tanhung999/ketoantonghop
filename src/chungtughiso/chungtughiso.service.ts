@@ -4,48 +4,66 @@ import { cSoChungTu, dNgayChungTu, selectChungTu } from '../select';
 import { getChungTuLasted } from '../getchungtulasted';
 import { soChungTuNext } from '../getChungTuNext';
 import { InsertChungTuGhiSoChiTietDTO, InsertChungTuGhiSoDTO, UpdateChungTuGhiSoChiTietDTO, UpdateChungTuGhiSoDTO } from './dto';
-import { convertMaChungTu, convertSoChungTu } from 'src/convert.sochungtu.ts';
+import { convertMaChungTu } from '../convert.sochungtu.ts';
 @Injectable()
 export class ChungtughisoService {
     constructor(private prismaService: PrismaService) { }
 
     async getAll() {
-        return await this.prismaService.tChungTuGhiSo.findMany({
-            include: {
-                tChungTuGhiSoChiTiet: true
-            }
-        })
+        try {
+            return await this.prismaService.tChungTuGhiSo.findMany({
+                include: {
+                    tChungTuGhiSoChiTiet: true
+                }
+            })
+        } catch (error) {
+            throw new ForbiddenException(`Getting all chungtughiso error ${error}`);
+        }
     }
 
     async getChungTuGhiSoByMaChungTu(maChungTu: string) {
-        const machungtuConfig = convertMaChungTu(maChungTu)
-        return await this.prismaService.tChungTuGhiSo.findMany({
-            where: {
-                cMaChungTu: machungtuConfig
-            },
-            include: {
-                tChungTuGhiSoChiTiet: true
-            }
-        })
+        try {
+            const machungtuConfig = convertMaChungTu(maChungTu)
+            return await this.prismaService.tChungTuGhiSo.findUnique({
+                where: {
+                    cMaChungTu: machungtuConfig
+                },
+                include: {
+                    tChungTuGhiSoChiTiet: true
+                }
+            })
+        } catch (error) {
+            throw new ForbiddenException(`Getting a record chungtughiso error ${error}`)
+        }
+        
     }
     async getChungTuGhiSo() {
-        const listChungTu = await this.prismaService.tChungTuGhiSo.findMany({
-            select: selectChungTu,
-            orderBy: [
-                { dNgayChungTu },
-
-                { cSoChungTu }
-            ]
-        })
-        const chungTuLast = getChungTuLasted(listChungTu)
-        const chungTu = {
-            listChungTu,
-            chungTuLast
+        try {
+            const listChungTu = await this.prismaService.tChungTuGhiSo.findMany({
+                select: selectChungTu,
+                orderBy: [
+                    { dNgayChungTu },
+    
+                    { cSoChungTu }
+                ]
+            })
+            const chungTuLast = getChungTuLasted(listChungTu)
+            const chungTu = {
+                listChungTu,
+                chungTuLast
+            }
+            return chungTu
+        } catch (error) {
+            throw new ForbiddenException(`Getting chungtughiso  error ${error}`)
         }
-        return chungTu
+        
     }
     async soChungTuGhiSoNext() {
-        return soChungTuNext((await this.getChungTuGhiSo()).chungTuLast)
+        try {
+            return soChungTuNext((await this.getChungTuGhiSo()).chungTuLast)
+        } catch (error) {
+            throw new ForbiddenException(`Getting so chungtughiso next error ${error}`)
+        }
     }
     // async createdChungTuGhiSo(
     //         insertChungTuGhiSoDTO :InsertChungTuGhiSoDTO
@@ -120,18 +138,15 @@ export class ChungtughisoService {
             },
             take: 1
         })
-
         const idNext = maxId[0].nMaSo + 1
-
         try {
-            return await this.prismaService.tChungTuGhiSo.create({
+            const chungTuNew = await this.prismaService.tChungTuGhiSo.create({
                 data: {
                     ...chungTuGhiSoData,
                     tChungTuGhiSoChiTiet: {
                         create: {
                             ...chungTuGhiSoChiTietData,
                             nMaSo: idNext
-
                         }
                     }
                 },
@@ -139,28 +154,33 @@ export class ChungtughisoService {
                     tChungTuGhiSoChiTiet: true
                 }
             })
+            return {
+                message: "Created Successfully",
+                chungTuNew
+            }
         } catch (error) {
             throw new ForbiddenException(`Creating a new chungtu error ${error}`)
         }
-    }
-    async deletedChungTuGhiSoChiTiet(machungtu: string) {
-        try {
-            const machungtuConfig = convertMaChungTu(machungtu)
-            const result = await this.prismaService.$queryRaw`DELETE FROM tChungTuGhiSoChiTiet
-                WHERE tChungTuGhiSoChiTiet.cMaChungTu =${machungtuConfig}`
-            return result
-        } catch (error) {
-            throw new ForbiddenException(`Error deleting chungtughisochitiet: ${error}`);
-        }
-
     }
 
     async deletedChungTuGhiSo(machungtu: string) {
         try {
             const machungtuConfig = convertMaChungTu(machungtu)
-            const result = await this.prismaService.$queryRaw`DELETE FROM tChungTuGhiSo
-                WHERE tChungTuGhiSo.cMaChungTu =${machungtuConfig}`
-            return { message: 'Deleted Successfully!!!' }
+            const existingChungTu = await this.getChungTuGhiSoByMaChungTu(machungtu)
+            if(!existingChungTu) {
+                throw new NotFoundException(`Chungtu have cMaChungTu ${machungtuConfig} not found`)
+            }
+            if(existingChungTu?.tChungTuGhiSoChiTiet) {
+                await this.prismaService.tChungTuGhiSoChiTiet.deleteMany({
+                    where: {cMaChungTu: machungtuConfig}
+                })
+            }
+            await this.prismaService.tChungTuGhiSo.delete({
+                where:{cMaChungTu: machungtuConfig}
+            })
+            return {
+                message : "Deleted Successfully"
+            }
         } catch (error) {
             throw new ForbiddenException(`Error deleting chungtughiso: ${error}`);
         }
@@ -179,13 +199,16 @@ export class ChungtughisoService {
         }
         try {
 
-             await this.prismaService.tChungTuGhiSo.update({
+            const chungtuAfterUpdated = await this.prismaService.tChungTuGhiSo.update({
                 where: { cMaChungTu: machungtuConfig },
                 data: {
                     ...chungTuGhiSoData, 
                 }
             })
-            return {message: "Updated Successfully!!!"}
+            return {
+                message: "Updated Successfully!!!",
+                chungtuAfterUpdated
+            }
 
         } catch (error) {
             throw new ForbiddenException(`Error updating data: ${error}`);
@@ -205,8 +228,7 @@ export class ChungtughisoService {
             throw new NotFoundException(`ChungTu with id ${machungtuConfig} not found`);
         }
         try {
-
-            await this.prismaService.tChungTuGhiSo.update({
+            const chungtuAfterUpdated = await this.prismaService.tChungTuGhiSo.update({
                 where: { cMaChungTu: machungtuConfig },
                 data: {
                     tChungTuGhiSoChiTiet: {
@@ -218,13 +240,12 @@ export class ChungtughisoService {
                 }
             })
             return {
-                message: "Updated Successfully!!!"
+                message: "Updated Successfully!!!",
+                chungtuAfterUpdated
             }
-
         } catch (error) {
             throw new ForbiddenException(`Error updating data: ${error}`);
         }
-
     }
     // async updatedChungTuGhiSoChiTiet
     //     (

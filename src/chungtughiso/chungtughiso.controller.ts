@@ -46,8 +46,6 @@ export class ChungtughisoController {
     deleteChungTu(
        @Param('bymsochungtu') machungtu :string 
     ){
-        const resultDeletedGhiSoChiTiet= this.chungTuGhiSoService.deletedChungTuGhiSoChiTiet(machungtu)
-        if(resultDeletedGhiSoChiTiet) return this.chungTuGhiSoService.deletedChungTuGhiSo(machungtu)
-        return {error: "Record not found"}
+       return this.chungTuGhiSoService.deletedChungTuGhiSo(machungtu)
     }
 }
