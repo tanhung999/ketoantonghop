@@ -1,6 +1,6 @@
 import { Body, Controller,Delete,Get, Param, ParseIntPipe, Patch, Post, Query } from '@nestjs/common';
 import { ChungtughisoService } from './chungtughiso.service';
-import { InsertChungTuGhiSoDTO, UpdateChungTuGhiSoChiTietDTO, UpdateChungTuGhiSoDTO } from './dto';
+import { InsertChungTuGhiSoDTO, UpdateChungTuGhiSoChiTietDTO, UpdateChungTuGhiSoDTO,InsertChungTuGhiSoChiTietDTO } from './dto';
 
 
 @Controller('chungtughiso')
@@ -10,38 +10,37 @@ export class ChungtughisoController {
     getChungTuGhiSo(){
         return this.chungTuGhiSoService.getAll()
     }
-    @Get('/bysochungtu/:sochungtu')
-    getChungTuGhiSoByMaChungTu(@Param ('sochungtu') soChungTu: string ){
-        return this.chungTuGhiSoService.getChungTuGhiSoBySoChungTu(soChungTu)
+    @Get('/bysochungtu/:machungtu')
+    getChungTuGhiSoByMaChungTu(@Param ('machungtu') maChungTu: string ){
+        return this.chungTuGhiSoService.getChungTuGhiSoByMaChungTu(maChungTu)
     }
     @Get('sochungtunext')
     getSoChungTuGhiSoNext (){
         return this.chungTuGhiSoService.soChungTuGhiSoNext()
     }
     @Post('createdchungtughiso')
-    createNewChungTuGhiSo ( @Body() insertChungTuGhiSo: InsertChungTuGhiSoDTO) {
-        return this.chungTuGhiSoService.createdChungTuGhiSo(insertChungTuGhiSo)
+    createNewChungTuGhiSo ( @Body() insertChungTuGhiSo: any) {
+        const {chungTuGhiSoData,chungTuGhiSoChiTietData} = insertChungTuGhiSo as {
+            chungTuGhiSoData:InsertChungTuGhiSoDTO,
+            chungTuGhiSoChiTietData:InsertChungTuGhiSoChiTietDTO
+        
+        }
+        return this.chungTuGhiSoService.createdChungTuGhiSo(chungTuGhiSoData,chungTuGhiSoChiTietData)
     }
     @Patch('updatedchungtughiso/:bymachungtu')
     updatedChungTuGhiSo(
-        @Param('bymachungtu') machungtu: string,
+        @Param('bymachungtu') maChungTu: string,
         @Body() updateData: any,
-        @Query('maso',ParseIntPipe) maso: number
+        @Query('maso',ParseIntPipe) maSo: number
     ){
         const {chungTuGhiSoData, chungTuGhiSoChiTietData} = updateData as {
         chungTuGhiSoData: UpdateChungTuGhiSoDTO,
         chungTuGhiSoChiTietData: UpdateChungTuGhiSoChiTietDTO
        }
-       if(maso === undefined || chungTuGhiSoChiTietData===undefined ) {
-           return this.chungTuGhiSoService.updatedChungTuGhiSo(machungtu,chungTuGhiSoData)
-       } else if (chungTuGhiSoData === undefined) {
-            return  this.chungTuGhiSoService.updatedChungTuGhiSoChiTiet(chungTuGhiSoChiTietData,maso,machungtu)
-       } else {
-        return {
-            chungtughiso: this.chungTuGhiSoService.updatedChungTuGhiSo(machungtu,chungTuGhiSoData),
-            chungtughisochitiet: this.chungTuGhiSoService.updatedChungTuGhiSoChiTiet(chungTuGhiSoChiTietData,maso,machungtu)
-        }
-       }
+         
+        const chungTuGhiSo= this.chungTuGhiSoService.updatedChungTuGhiSo(maChungTu,chungTuGhiSoData)
+        const chungTuGhiSoChiTiet = this.chungTuGhiSoService.updatedChungTuGhiSoChiTiet(maSo,maChungTu,chungTuGhiSoChiTietData)
+        return this.chungTuGhiSoService.getChungTuGhiSoByMaChungTu(maChungTu)
     }
     @Delete('/deletedchungtughiso/:bymsochungtu')
     deleteChungTu(

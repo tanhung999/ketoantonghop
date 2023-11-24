@@ -1,6 +1,6 @@
-import { Body, Controller,Get, Param, Post } from '@nestjs/common';
+import { Body, Controller,Get, Param, ParseIntPipe, Patch, Post, Query } from '@nestjs/common';
 import { ChungtuketchuyenService } from './chungtuketchuyen.service';
-import { InsertChungTuKetChuyenDTO, InsertChungTuKetChuyenChiTietDTO } from './dto';
+import { InsertChungTuKetChuyenDTO, InsertChungTuKetChuyenChiTietDTO, UpdateChungTuKetChuyenDTO, UpdateChungTuKetChuyenChiTietDTO } from './dto';
 
 @Controller('chungtuketchuyen')
 export class ChungtuketchuyenController {
@@ -27,4 +27,22 @@ export class ChungtuketchuyenController {
         }
         return this.chungTuKetChuyenService.createdChungTuKetChuyen(chungTuKetChuyenData,ketChuyenChiTietData)
     }
+    @Patch('/updatedchungtuketchuyen/:bymachungtu')
+    updatedChungTuKetChuyen(
+        @Body() updateChungTuData : any,
+        @Param('bymachungtu') maChungTu: string,
+        @Query('id',ParseIntPipe) id: number
+    
+    ){
+        const {updateChungTuKetChuyenData,updateChungTuKetChuyenChiTietData} =
+        updateChungTuData as {updateChungTuKetChuyenData: UpdateChungTuKetChuyenDTO,updateChungTuKetChuyenChiTietData:UpdateChungTuKetChuyenChiTietDTO}
+        const chungTuKetChuyenAfterUpdate= this.chungTuKetChuyenService.updateChungTuKetChuyen(updateChungTuKetChuyenData,maChungTu)
+        const ketChuyenChiTietAfterUpdate = this.chungTuKetChuyenService.updateChungTuKetChuyenChiTiet(maChungTu,updateChungTuKetChuyenChiTietData,id)
+        return {
+            chungTuKetChuyenAfterUpdate,
+            ketChuyenChiTietAfterUpdate
+        }
+    }   
+
+    
 }

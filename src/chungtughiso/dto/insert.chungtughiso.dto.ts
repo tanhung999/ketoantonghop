@@ -78,20 +78,5 @@ export class InsertChungTuGhiSoDTO {
     @IsOptional()
     cMatHang?: string
 
-    @IsString()
-    @IsNotEmpty()
-    cDienGiaiChiTiet: string
-
-    @IsFloat()
-    @IsNotEmpty()
-    nSoTien: number
-
-    @IsString()
-    @IsNotEmpty()
-    cTaiKhoanNo: string
-
-    @IsString()
-    @IsNotEmpty()
-    cTaiKhoanCo: string
-
+    
 }
