@@ -1,4 +1,4 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import { Controller, Get, Param, Post } from '@nestjs/common';
 import { DanhmuchanghoaService } from './danhmuchanghoa.service';
 @Controller('danhmuchanghoa')
 export class DanhmuchanghoaController {
@@ -11,5 +11,8 @@ export class DanhmuchanghoaController {
     getHangHoaByMaHang(@Param('mahanghoa') maHangHoa: string){
         return this.danhmuchanghoaService.getHangHoaByMaHang(maHangHoa);
     }
-    
+    @Post('createHangHoa')
+    createdHangHoa(){
+        return this.danhmuchanghoaService.createHangHoa()
+    }
 }

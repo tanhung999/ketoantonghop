@@ -1,20 +1,27 @@
-import { Injectable } from '@nestjs/common';
+import { ForbiddenException, Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 @Injectable()
 export class DanhmuchanghoaService {
     constructor(private prismaService: PrismaService){}
     async getAll(){
-        return await this.prismaService.tDanhMucHangHoa.findMany({
-            
-        })
+        try {
+            return await this.prismaService.tDanhMucHangHoa.findMany()
+        } catch (error) {
+            throw new ForbiddenException(`Getting all data error ${error}`)
+        }
     }
     async getHangHoaByMaHang(maHangHoa){
-        return this.prismaService.tDanhMucHangHoa.findMany({
-            
-            where : {
-                cMaHang: maHangHoa,
-            }
-            
-        })
+        try {
+            return this.prismaService.tDanhMucHangHoa.findUnique({  
+                where : {
+                    cMaHang: maHangHoa,
+                }
+                
+            })
+        } catch (error) {
+            throw new ForbiddenException(`Getting a record data error ${error}`)
+        }
+        
     }
+    async createHangHoa(){}
 }
