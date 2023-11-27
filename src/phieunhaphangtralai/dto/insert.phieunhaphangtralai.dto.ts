@@ -1,3 +1,3 @@
-export class InsertPhieuNhapHangTraLai {
+export class InsertPhieuNhapHangTraLaiDTO {
     
 }

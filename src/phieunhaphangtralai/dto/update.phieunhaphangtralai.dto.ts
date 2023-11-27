@@ -1,3 +1,3 @@
-export class UpdatePhieuNhapHangTraLai {
+export class UpdatePhieuNhapHangTraLaiDTO {
     
 }

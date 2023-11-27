@@ -41,7 +41,14 @@ export class DanhmuctaikhoancongnokhachhangService {
             throw new ForbiddenException(`Creating a new taikhoancongnokhachhang error ${error}`)
         }
     }
-    async updateDanhMucTaiKhoanCongNoKhachHang (updateDanhMucTaiKhoanCongNoKhachHangData:UpdateTaiKhoanCongNoKhachHangDTO,cMaKhachHang: string,cTaiKhoan:string){
+    async updateDanhMucTaiKhoanCongNoKhachHang (updateDanhMucTaiKhoanCongNoKhachHangData:UpdateTaiKhoanCongNoKhachHangDTO,
+        cMaKhachHang: string,cTaiKhoan:string){
+        try {
+            const existTaiKhoanCongNoKhachHang = await this.getDanhMucKhachHangByMaKhachHang(cMaKhachHang,cTaiKhoan)
+            if(!existTaiKhoanCongNoKhachHang) return 'Tai khoan not found'
+        } catch (error) {
+            throw new ForbiddenException(`Error ${error}`)
+        }
         try {
             const taiKhoanCongNoAfterUpdated = await this.prismaService.tDanhMucTaiKhoanCongNoKhachHang.update({
                 where: {
