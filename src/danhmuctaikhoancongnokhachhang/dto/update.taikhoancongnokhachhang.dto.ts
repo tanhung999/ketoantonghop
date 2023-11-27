@@ -1,28 +1,24 @@
 import { IsDate, IsOptional, IsString } from "class-validator"
 import { IsFloat } from "../../chungtughiso/dto/decorator.dto"
 
-export class UpdateHangHoaDTO {
+export class UpdateTaiKhoanCongNoKhachHangDTO {
     @IsString()
     @IsOptional()
-    cTenHang? :string 
+    cTaiKhoan?: string
 
     @IsString()
     @IsOptional()
-    cNhomHang?: string
-
-    @IsString()
-    @IsOptional()
-    cDonViTinh? : string
+    cMaKhachHang?: string
 
     @IsFloat()
     @IsOptional()
-    nSoLuongTonDau?: number
+    nSoDuNoDau?: number
 
     @IsFloat()
     @IsOptional()
-    nThanhTienTonDau?: number
+    nSoDuCoDau?: number
 
     @IsDate()
     @IsOptional()
-    dNgayTonDau?: Date
+    dNgaySoDu?: Date
 }

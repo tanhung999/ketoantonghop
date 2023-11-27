@@ -1,5 +1,6 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
 import { DanhmuctaikhoanService } from './danhmuctaikhoan.service';
+import { InsertDanhMucTaiKhoanDTO, UpdateDanhMucTaiKhoanDTO } from './dto';
 
 @Controller('danhmuctaikhoan')
 export class DanhmuctaikhoanController {
@@ -13,5 +14,19 @@ export class DanhmuctaikhoanController {
     getDanhMucTaiKhoanBySoTaiKhoan(@Param('taikhoan' )soTaiKhoan: string ){
         return this.danhmuctaikhoanService.getDanhMucTaiKhoanBySoTaiKhoan(soTaiKhoan)
     }
-
+    @Post('createtaikhoan')
+    createDanhMucTaiKhoan(@Body() insertTaiKhoanData: InsertDanhMucTaiKhoanDTO){
+        return this.danhmuctaikhoanService.createTaiKhoan(insertTaiKhoanData)
+    }
+    @Patch('updatetaikhoan/:taikhoan')
+    updatedTaiKhoan(
+        @Body() updateTaiKhoanData : UpdateDanhMucTaiKhoanDTO,
+        @Param('taikhoan') taiKhoan :string
+    ){
+        return this.danhmuctaikhoanService.updateTaiKhoan(updateTaiKhoanData,taiKhoan)
+    }
+    @Delete('deleteTaiKhoan/:taikhoan')
+    deletedTaiKhoan(@Param('taikhoan') taikhoan: string){
+        return this.danhmuctaikhoanService.deleteTaiKhoan(taikhoan)
+    }
 }
