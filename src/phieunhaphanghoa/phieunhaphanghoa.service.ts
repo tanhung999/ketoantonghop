@@ -64,7 +64,7 @@ export class PhieunhaphanghoaService {
             throw new Error(`Getting SoChungTuGhiSoNext error ${error}`)
         }
     }
-    async createPhieuNhap (insertPhieuNhapHangHoaData: InsertPhieuNhapHangHoaDTO,
+    async createPhieuNhapHangHoa (insertPhieuNhapHangHoaData: InsertPhieuNhapHangHoaDTO,
         insertPhieuNhapHangHoaChiTietData: InsertPhieuNhapHangHoaChiTietDTO    
     ){
         const maxMaSo = await this.prismaService.tPhieuNhapHangHoaChiTiet.findMany({
@@ -73,7 +73,7 @@ export class PhieunhaphanghoaService {
             },
             take: 1
         })
-        const cMaSo = maxMaSo[0].nMaSo + 1
+        const nMaSo = maxMaSo[0].nMaSo + 1
         try {
             
             const phieuNhapHangHoa = await this.prismaService.tPhieuNhapHangHoa.create({
