@@ -55,7 +55,6 @@ export class PhieunhaphangtralaiService {
             throw new Error(`Getting phieunhaphangtralai error ${error}`)
         }
     }
-    
     async soChungTuGhiSoNext () {
         try {
             return soChungTuNext((await this.getPhieuNhapHangTraLai()).chungTuLast)
@@ -63,7 +62,6 @@ export class PhieunhaphangtralaiService {
             throw new Error(`soChungTuGhiSoNext error ${error}`)
         }
     }
-
     async createPhieuNhapHangHoaTraLai(insertPhieuNhapHangHoaTraLaiData: InsertPhieuNhapHangTraLaiDTO,
             insertPhieuNhapHangHoaTraLaiChiTietData: InsertPhieuNhapHangTraLaiChiTietDTO
         ){

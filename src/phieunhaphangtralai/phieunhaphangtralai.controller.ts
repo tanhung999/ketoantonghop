@@ -9,7 +9,7 @@ export class PhieunhaphangtralaiController {
     getAll(){
         return this.phieuNhapHangTraLaiService.getAll()
     }
-    @Get('/bysochungtu/:machungtu')
+    @Get('/bymachungtu/:machungtu')
     getPhieuNhapHangHoaTraLaiBySoChungTu(@Param('machungtu') maChungTu: string ){
         return this.phieuNhapHangTraLaiService.getPhieuNhapHangTraLaiByMaChungTu(maChungTu)
     }
