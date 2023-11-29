@@ -99,7 +99,6 @@ model tDanhMucChungTu {
   tChungTuKetChuyen    tChungTuKetChuyen[]
   tChungTuNganHang     tChungTuNganHang[]
   tPhieuChi            tPhieuChi[]
-  tPhieuXuatHangHoa    tPhieuXuatHangHoa[]
   tPhieuXuatHangTraLai tPhieuXuatHangTraLai[]
 }
 
@@ -112,7 +111,6 @@ model tDanhMucHangHoa {
   nThanhTienTonDau            Float?
   dNgayTonDau                 DateTime?                     @db.DateTime
   tPhieuNhapHangHoaChiTiet    tPhieuNhapHangHoaChiTiet[]
-  tPhieuXuatHangHoaChiTiet    tPhieuXuatHangHoaChiTiet[]
   tPhieuXuatHangTraLaiChiTiet tPhieuXuatHangTraLaiChiTiet[]
 }
 
@@ -127,7 +125,6 @@ model tDanhMucKhachHang {
   tChungTuGhiSo        tChungTuGhiSo[]
   tChungTuNganHang     tChungTuNganHang[]
   tPhieuChi            tPhieuChi[]
-  tPhieuXuatHangHoa    tPhieuXuatHangHoa[]
   tPhieuXuatHangTraLai tPhieuXuatHangTraLai[]
 }
 
@@ -310,8 +307,6 @@ model tPhieuXuatHangHoa {
   nThueGTGT                Int?
   cSoSeri                  String?                    @db.NVarChar(15)
   cSoHoaDon                String?                    @db.NVarChar(7)
-  tDanhMucChungTu          tDanhMucChungTu?           @relation(fields: [cLoaiChungTu], references: [cMaLoaiChungTu], onDelete: NoAction, onUpdate: NoAction, map: "FK_tPhieuXuatHangHoa_tDanhMucChungTu")
-  tDanhMucKhachHang        tDanhMucKhachHang?         @relation(fields: [cMaKhachHang], references: [cMaKhachHang], onDelete: NoAction, onUpdate: NoAction, map: "FK_tPhieuXuatHangHoa_tDanhMucKhachHang")
   tPhieuXuatHangHoaChiTiet tPhieuXuatHangHoaChiTiet[]
 }
 
@@ -327,7 +322,6 @@ model tPhieuXuatHangHoaChiTiet {
   nThanhTienGiaBan  Int?
   cMaChungTuNhap    String?           @db.NVarChar(20)
   tPhieuXuatHangHoa tPhieuXuatHangHoa @relation(fields: [cMaChungTu], references: [cMaChungTu], onUpdate: NoAction, map: "FK__tPhieuXua__cMaCh__73BA3083")
-  tDanhMucHangHoa   tDanhMucHangHoa   @relation(fields: [cMaHang], references: [cMaHang], onUpdate: NoAction, map: "FK_tPhieuXuatHangHoaChiTiet_tDanhMucHangHoa")
 }
 
 model tPhieuXuatHangTraLai {

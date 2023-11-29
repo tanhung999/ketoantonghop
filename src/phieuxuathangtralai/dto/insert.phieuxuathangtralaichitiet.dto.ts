@@ -1,3 +1,3 @@
-export class InsertPhieuXuatHangTraLaiChiTiet {
+export class InsertPhieuXuatHangTraLaiChiTietDTO {
 
 }
