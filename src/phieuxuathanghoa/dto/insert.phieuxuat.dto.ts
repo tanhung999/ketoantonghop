@@ -20,15 +20,15 @@ export class InsertPhieuXuatDTO {
 
     @IsString()
     @IsOptional()
-    cMaKhachHang: string
+    cMaKhachHang?: string
 
     @IsString()
     @IsOptional()
-    cTenKhachHang: string
+    cTenKhachHang?: string
 
     @IsString()
     @IsOptional()
-    cMaSoThue: string
+    cMaSoThue?: string
 
     @IsString()
     @IsNotEmpty()
@@ -52,11 +52,11 @@ export class InsertPhieuXuatDTO {
 
     @IsString()
     @IsOptional()
-    cDienGiai: string
+    cDienGiai?: string
 
     @IsString()
     @IsOptional()
-    cMatHang: string
+    cMatHang?: string
 
     @IsFloat()
     @IsNotEmpty()
@@ -68,9 +68,9 @@ export class InsertPhieuXuatDTO {
 
     @IsString()
     @IsOptional()
-    cSoSeri: string
+    cSoSeri?: string
 
     @IsString()
     @IsOptional()
-    cSoHoaDon: string
+    cSoHoaDon?: string
 }
