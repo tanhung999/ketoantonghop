@@ -207,7 +207,7 @@ model tPhieuNhapHangHoa {
 
 model tPhieuNhapHangHoaChiTiet {
   cMaChungTu        String            @db.NVarChar(20)
-  nMaSo             Int               @id(map: "PK__tPhieuNh__9B1A8F8BDE864C56")
+  nMaSo             Int               @id(map: "PK__tPhieuNh__9B1A8F8BDE864C56")  @default(autoincrement())
   cMaHang           String            @db.NVarChar(8)
   cDonViTinh        String?           @db.NVarChar(10)
   nSoLuong          Float?
@@ -243,7 +243,7 @@ model tPhieuNhapHangTraLai {
 
 model tPhieuNhapHangTraLaiChiTiet {
   cMaChungTu           String               @db.NVarChar(20)
-  nMaSo                Int                  @id(map: "PK__tPhieuNh__9B1A8F8B2006A51E")
+  nMaSo                Int                  @id(map: "PK__tPhieuNh__9B1A8F8B2006A51E")  @default(autoincrement())
   cMaHang              String               @db.NVarChar(8)
   cDonViTinh           String?              @db.NVarChar(10)
   nSoLuong             Float?

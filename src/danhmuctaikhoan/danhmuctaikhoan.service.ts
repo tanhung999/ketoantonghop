@@ -1,4 +1,4 @@
-import { ForbiddenException, Injectable } from '@nestjs/common';
+import { ForbiddenException, HttpStatus, Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { InsertDanhMucTaiKhoanDTO } from './dto';
 import { UpdateDanhMucTaiKhoanDTO } from './dto';
@@ -67,4 +67,23 @@ export class DanhmuctaikhoanService {
             throw new ForbiddenException(`Deleting taikhoan error ${error}`)
         }
     }
+    async doiChieuSoDuNoWithSoDuCo(){
+        const sumSoDu = await this.prismaService.tDanhMucTaiKhoan.aggregate({
+            _sum: {
+                nSoDuNoDau: true,
+                nSoDuCoDau: true
+            }, 
+            where :{
+                bCoDinhKhoan: true
+            }
+        })
+        return {
+            message:'Doi chieu so du no dau và so du co dau thành công',
+            statusCode: HttpStatus.OK,
+            data: {
+                sumSoDu
+            }
+        }
+    }
+    async 
 }

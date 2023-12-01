@@ -10,9 +10,13 @@ export class DanhmuctaikhoanController {
     getAll(){
         return this.danhmuctaikhoanService.getAll()
     }
-    @Get(':taikhoan')
+    @Get('bytaikhoan/:taikhoan')
     getDanhMucTaiKhoanBySoTaiKhoan(@Param('taikhoan' )soTaiKhoan: string ){
         return this.danhmuctaikhoanService.getDanhMucTaiKhoanBySoTaiKhoan(soTaiKhoan)
+    }
+    @Get('doi-chieu-so-du-no-so-du-co')
+    doiChieuSoDuNoWithSoDuCo(){
+        return this.danhmuctaikhoanService.doiChieuSoDuNoWithSoDuCo()
     }
     @Post('createtaikhoan')
     createDanhMucTaiKhoan(@Body() insertTaiKhoanData: InsertDanhMucTaiKhoanDTO){
