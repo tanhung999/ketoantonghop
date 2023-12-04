@@ -34,7 +34,7 @@ model tChungTuGhiSo {
 
 model tChungTuGhiSoChiTiet {
   cMaChungTu       String            @db.NVarChar(20)
-  nMaSo            Int               @id(map: "PK__tChungTu__9B1A8F8B0CFAAE93")
+  nMaSo            Int               @id(map: "PK__tChungTu__9B1A8F8B0CFAAE93") @default(autoincrement())
   cDienGiaiChiTiet String?           @db.NVarChar(50)
   nSoTien          Float?
   cTaiKhoanNo      String?           @db.NVarChar(20)
@@ -82,7 +82,7 @@ model tChungTuNganHang {
 
 model tChungTuNganHangChiTiet {
   cMaChungTu       String            @db.NVarChar(20)
-  nMaSo            Int               @id(map: "PK__tChungTu__9B1A8F8BDFF43EAC")
+  nMaSo            Int               @id(map: "PK__tChungTu__9B1A8F8BDFF43EAC") @default(autoincrement())
   cDienGiaiChiTiet String?           @db.NVarChar(50)
   nSoTien          Float?
   cTaiKhoanNo      String?           @db.NVarChar(20)
@@ -92,7 +92,7 @@ model tChungTuNganHangChiTiet {
 }
 
 model tDanhMucChungTu {
-  cMaLoaiChungTu    String              @id(map: "PK_tDanhMucChungTu") @db.NVarChar(2)
+  cMaLoaiChungTu    String              @id(map: "PK_tDanhMucChungTu") @db.NVarChar(2) 
   cTenLoaiChungTu   String              @db.NVarChar(30)
   cTenBang          String?             @db.NVarChar(30)
   tChungTuGhiSo     tChungTuGhiSo[]
