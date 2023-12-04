@@ -13,14 +13,15 @@ export class DanhmuctaikhoancongnokhachhangService {
     } 
     async  getDanhMucKhachHangByMaKhachHang(cMaKhachHang: string,cTaiKhoan:string) {
         try {
-            return await this.prismaService.tDanhMucTaiKhoanCongNoKhachHang.findUnique({
+            const result =  await this.prismaService.tDanhMucTaiKhoanCongNoKhachHang.findUnique({
                 where: {
                     cTaiKhoan_cMaKhachHang: {
-                        cMaKhachHang,
-                        cTaiKhoan
+                        cTaiKhoan,cMaKhachHang
                     }
                 }
             })
+            console.log(result)
+            return result
         } catch(error) {
             throw new ForbiddenException(`Getting a record error ${error}`)
         }

@@ -27,7 +27,10 @@ export class DanhmuctaikhoancongnokhachhangController {
         @Param('cMaKhachHang') cMaKhachHang:string,
         @Param('cTaiKhoan') cTaiKhoan:string
     ) {
-        return this.updateTaiKhoanCongNo(updateTaiKhoanCongNoData,cMaKhachHang,cTaiKhoan)
+        return this.danhmuctaikhoancongnokhachhangService.updateDanhMucTaiKhoanCongNoKhachHang(updateTaiKhoanCongNoData,cMaKhachHang,cTaiKhoan)
+        // kiểm tra lại chổ này 
+        // a viết nhầm lúc nãy là return this.updateTaiKhoanCongNo(updateTaiKhoanCongNoData,cMaKhachHang,cTaiKhoan)
+        // => sửa lại thành như trên
     }
     @Delete('deletetaikhoancongno')
     deletedTaiKhoanCongNo(

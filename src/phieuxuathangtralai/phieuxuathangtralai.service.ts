@@ -93,7 +93,7 @@ export class PhieuxuathangtralaiService {
                     ...insertPhieuXuatHangTraLaiData,
                     tPhieuXuatHangTraLaiChiTiet: {
                         create: {
-                            ...insertPhieuXuatHangTraLaiChiTietData,
+                            ...insertPhieuXuatHangTraLaiChiTietData
                         }
                     }
                 }
@@ -102,7 +102,6 @@ export class PhieuxuathangtralaiService {
                 message:'success',
                 statusCode: HttpStatus.OK,
                 data:phieuXuatHangTraLai,
-
             }
         }catch (error) {
             throw new ForbiddenException(`Create Phieu Xuat Hang Tra Lai error ${error}`)

@@ -17,6 +17,7 @@ import { PhieuxuathangtralaiModule } from './phieuxuathangtralai/phieuxuathangtr
 import { ListchungtuModule } from './listchungtu/listchungtu.module';
 import { XemhangtondanhapModule } from './xemhangtondanhap/xemhangtondanhap.module';
 import { XemhangdaxuatModule } from './xemhangdaxuat/xemhangdaxuat.module';
+import { DanhmuckhachhangModule } from './danhmuckhachhang/danhmuckhachhang.module';
 
 
 
@@ -39,6 +40,7 @@ import { XemhangdaxuatModule } from './xemhangdaxuat/xemhangdaxuat.module';
             ListchungtuModule,
             XemhangtondanhapModule,
             XemhangdaxuatModule,
+            DanhmuckhachhangModule
           ]
 })
 export class AppModule {}
