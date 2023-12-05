@@ -115,7 +115,8 @@ export class PhieuxuathanghoaService {
         }
     }
 
-    async updatePhieuXuat (updatePhieuXuatData: UpdatePhieuXuatDTO,
+    async updatePhieuXuat (
+        updatePhieuXuatData: UpdatePhieuXuatDTO,
         updatePhieuXuatHangHoaChiTietData : UpdatePhieuXuatChiTietDTO,
         maChungTu: string,
         id: number

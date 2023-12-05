@@ -82,20 +82,26 @@ export class PhieunhaphangtralaiService {
                             nMaSo
                         }
                     }
+                },
+                include: {
+                    tPhieuNhapHangTraLaiChiTiet: true 
                 }
             })
             return {
                 message:{
                     type:'success',
-                    content:`Thêm mới thành công`, 
+                    content:`Thêm mới thành công`,
+
                 },
+                
                 newPhieuNhap
             }
         } catch(error) {
             throw new Error(`create phieunhaphanghoatralai error ${error}`)
         }
     }
-    async updatePhieuNhapHangTraLai(updatePhieuNhapHangHoaTraLaiData: UpdatePhieuNhapHangTraLaiDTO,
+    async updatePhieuNhapHangTraLai(
+        updatePhieuNhapHangHoaTraLaiData: UpdatePhieuNhapHangTraLaiDTO,
         updatePhieuNhapHangHoaTraLaiChiTietData: UpdatePhieuNhapHangTraLaiChiTietDTO,
         maChungTu:string,
         maSo:number
@@ -118,6 +124,9 @@ export class PhieunhaphangtralaiService {
                             data:{...updatePhieuNhapHangHoaTraLaiChiTietData}
                         }
                     }
+                },
+                include: {
+                    tPhieuNhapHangTraLaiChiTiet: true
                 }
             })
             return {

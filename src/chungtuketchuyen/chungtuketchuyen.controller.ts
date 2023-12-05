@@ -27,7 +27,7 @@ export class ChungtuketchuyenController {
         }
         return this.chungTuKetChuyenService.createdChungTuKetChuyen(chungTuKetChuyenData,ketChuyenChiTietData)
     }
-    @Patch('/updatedchungtuketchuyen/:bymachungtu')
+    @Patch('/updatechungtuketchuyen/:bymachungtu')
     updatedChungTuKetChuyen(
         @Body() updateChungTuData : any,
         @Param('bymachungtu') maChungTu: string,
@@ -36,13 +36,7 @@ export class ChungtuketchuyenController {
     ){
         const {updateChungTuKetChuyenData,updateChungTuKetChuyenChiTietData} =
         updateChungTuData as {updateChungTuKetChuyenData: UpdateChungTuKetChuyenDTO,updateChungTuKetChuyenChiTietData:UpdateChungTuKetChuyenChiTietDTO}
-        const chungTuKetChuyenAfterUpdate= this.chungTuKetChuyenService.updateChungTuKetChuyen(updateChungTuKetChuyenData,maChungTu)
-        const ketChuyenChiTietAfterUpdate = this.chungTuKetChuyenService.updateChungTuKetChuyenChiTiet(maChungTu,updateChungTuKetChuyenChiTietData,id)
-        return {
-            message: "Updated Successfully",
-            chungTuKetChuyenAfterUpdate,
-            ketChuyenChiTietAfterUpdate
-        }
+        return this.chungTuKetChuyenService.updateChungTuKetChuyen(updateChungTuKetChuyenData,updateChungTuKetChuyenChiTietData,maChungTu,id)
     }   
     @Delete('/deletedchungtuketchuyen/:bymachungtu')
     deleteChungTuKetChuyen(

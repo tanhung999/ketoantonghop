@@ -100,46 +100,48 @@ export class ChungtuketchuyenService {
           throw error;
         }
     }
-    async updateChungTuKetChuyen(updateChungTuKetChuyenData: UpdateChungTuKetChuyenDTO,maChungTu: string){
+    async updateChungTuKetChuyen(
+      updateChungTuKetChuyenData: UpdateChungTuKetChuyenDTO,
+      updateChungTuKetChuyenChiTietData:UpdateChungTuKetChuyenChiTietDTO,
+      maChungTu: string,
+      id:number
+    ){
         try {
-          const maChungTuUpdate = formatMaChungTu(maChungTu)
+          const cMaChungTu = formatMaChungTu(maChungTu)
           const existingChungTu = await this.getChungTuKetChuyenByMaChungTu(maChungTu)
           if (!existingChungTu) {
-              throw new NotFoundException(`ChungTu with id ${maChungTuUpdate} not found`);
+              throw new NotFoundException(`ChungTu with id ${cMaChungTu} not found`);
           }
-          return await this.prismaService.tChungTuKetChuyen.update({
-            where: {cMaChungTu: maChungTuUpdate},
-            data:{...updateChungTuKetChuyenData}
+          if (!existingChungTu?.tChungTuKetChuyenChiTiet) {
+            throw new NotFoundException(`ChungTu with id ${cMaChungTu} not found`);
+          }
+          const chungTuKetChuyenAfterUpdate= await this.prismaService.tChungTuKetChuyen.update({
+            where: {cMaChungTu},
+            data:{
+              ...updateChungTuKetChuyenData,
+              tChungTuKetChuyenChiTiet: {
+                update: {
+                  where: {id},
+                  data: {
+                    ...updateChungTuKetChuyenChiTietData
+                  }
+                }
+              }
+            },
+            include: {
+              tChungTuKetChuyenChiTiet: true
+            }
           })
+          return {
+            message: 'Update Success',
+            data: {
+              chungTuKetChuyenAfterUpdate
+            }
+          }
         } catch (error) {
           throw new ForbiddenException(`Error deleting chungtuketchuyen: ${error}`)
         }
     }
-    async updateChungTuKetChuyenChiTiet(maChungTu: string, updateChungTuKetChuyenChiTietData:UpdateChungTuKetChuyenChiTietDTO
-      ,id:number) {
-        try {
-            const maChungTuUpdate = formatMaChungTu(maChungTu)
-            const existingChungTu = await this.getChungTuKetChuyenByMaChungTu(maChungTu)
-          if (!existingChungTu?.tChungTuKetChuyenChiTiet) {
-              throw new NotFoundException(`ChungTu with id ${maChungTuUpdate} not found`);
-          }
-          return await this.prismaService.tChungTuKetChuyen.update({
-            where:{cMaChungTu:maChungTuUpdate},
-            data:{
-              tChungTuKetChuyenChiTiet:{
-                update:{
-                  where: {id:id},
-                  data: {...updateChungTuKetChuyenChiTietData}
-                }
-              }
-            }
-          })
-        } catch (error){
-          throw new ForbiddenException(`Error deleting chungtuketchuyenchitiet: ${error}`)
-        }
-        
-    }
-
     async deleteChungTuKetChuyen(maChungTu: string){
       try {
         const maChungTuDeleted = formatMaChungTu(maChungTu)

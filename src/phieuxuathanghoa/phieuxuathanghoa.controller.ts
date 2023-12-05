@@ -1,4 +1,4 @@
-import { Body, Controller,Delete,Get, Param, Patch, Post, Query } from '@nestjs/common';
+import { Body, Controller,Delete,Get, Param, ParseIntPipe, Patch, Post, Query } from '@nestjs/common';
 import { PhieuxuathanghoaService } from './phieuxuathanghoa.service';
 import { InsertPhieuXuatChiTietDTO, InsertPhieuXuatDTO, UpdatePhieuXuatChiTietDTO, UpdatePhieuXuatDTO } from './dto';
 
@@ -35,7 +35,7 @@ export class PhieuxuathanghoaController {
     updatePhieuXuatHangHoa (
         @Body() updateData : any,
         @Param('machungtu') maChungTu : string,
-        @Query('id') id : number
+        @Query('id',ParseIntPipe) id : number
     ){
         const {updatePhieuXuatData, updatePhieuXuatHangHoaChiTietData} = updateData as {
             updatePhieuXuatData: UpdatePhieuXuatDTO,
