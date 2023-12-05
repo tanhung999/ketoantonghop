@@ -82,6 +82,7 @@ export class PhieunhaphanghoaService {
                     tPhieuNhapHangHoaChiTiet :{
                         create: {
                             ...insertPhieuNhapHangHoaChiTietData,
+                            nMaSo
                         }
                     }
                 }
