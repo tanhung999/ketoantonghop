@@ -85,6 +85,9 @@ export class PhieunhaphanghoaService {
                             nMaSo
                         }
                     }
+                },
+                include:{
+                    tPhieuNhapHangHoaChiTiet: true
                 }
             })
             return {
@@ -121,6 +124,9 @@ export class PhieunhaphanghoaService {
                             }
                         }
                     }
+                },
+                include :{
+                    tPhieuNhapHangHoaChiTiet: true
                 }
             })
             return {
