@@ -27,7 +27,7 @@ export class PhieunhaphanghoaController {
         }
         return this.phieuNhapHangHoaService.createPhieuNhapHangHoa(insertPhieuNhapHangHoaData,insertPhieuNhapHangHoaChiTietData)
     }
-    @Patch('createphieunhaphanghoa/:machungtu')
+    @Patch('updatephieunhaphanghoa/:machungtu')
     updatedPhieuNhapHangHoa (
         @Body() updateData: any,
         @Param('machungtu') maChungTu : string,
