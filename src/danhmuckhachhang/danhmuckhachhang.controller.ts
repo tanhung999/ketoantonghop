@@ -10,7 +10,7 @@ export class DanhmuckhachhangController {
     getAll(){
         return this.danhmuckhachhangService.getAll()
     }
-    @Get('bymakhachhang/:makhachang')
+    @Get('bymachungtu/:makhachang')
     getDanhMucTaiKhoanBySoTaiKhoan(@Param('makhachang' )cMaKhachHang: string ){
         return this.danhmuckhachhangService.getDanhMucKhachHangByMaKhachHang(cMaKhachHang)
     }
@@ -19,12 +19,12 @@ export class DanhmuckhachhangController {
     createDanhMucTaiKhoan(@Body() insertKhachHangData: InsertDanhMucKhachHangDTO){
         return this.danhmuckhachhangService.createKhachHang(insertKhachHangData)
     }
-    @Patch('updatekhachhang/:makhachhang')
+    @Patch('update/:makhachhang')
     updatedKhachHang(
-        @Body() updateKhachHangData : UpdateDanhMucKhachHangDTO,
+        @Body() _tDanhMucKhachHang : UpdateDanhMucKhachHangDTO,
         @Param('makhachhang') cMaKhachHang :string
     ){
-        return this.danhmuckhachhangService.updateKhachHang(updateKhachHangData,cMaKhachHang)
+        return this.danhmuckhachhangService.updateKhachHang(_tDanhMucKhachHang,cMaKhachHang)
     }
     @Delete('deletekhachhang/:makhachhang')
     deletedKhachHang(@Param('makhachhang') cMaKhachHang: string){

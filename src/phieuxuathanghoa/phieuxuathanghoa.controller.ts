@@ -9,9 +9,9 @@ export class PhieuxuathanghoaController {
     getAll(){
         return this.phieuXuatHangHoaService.getAll()
     }
-    @Get('/bysochungtu/:sochungtu')
-    getPhieuXuatHangHoaBySoChungTu (@Param('sochungtu') soChungTu: string){
-        return this.phieuXuatHangHoaService.getPhieuXuatHangHoaByMaChungTu(soChungTu)
+    @Get('/bymachungtu/:machungtu')
+    getPhieuXuatHangHoaBySoChungTu (@Param('machungtu') maChungTu: string){
+        return this.phieuXuatHangHoaService.getPhieuXuatHangHoaByMaChungTu(maChungTu)
     }
     @Get('sochungtunext')
     getSoChungTuGhiSoNext (){
@@ -31,17 +31,17 @@ export class PhieuxuathanghoaController {
         }
         return this.phieuXuatHangHoaService.createPhieuXuatHangHoa(insertPhieuXuatData,insertPhieuXuatHangHoaChiTietData)
     }
-    @Patch('updatephieuxuat/:machungtu')
+    @Patch('update/:machungtu')
     updatePhieuXuatHangHoa (
         @Body() updateData : any,
         @Param('machungtu') maChungTu : string,
         @Query('id',ParseIntPipe) id : number
     ){
-        const {updatePhieuXuatData, updatePhieuXuatHangHoaChiTietData} = updateData as {
-            updatePhieuXuatData: UpdatePhieuXuatDTO,
+        const {_tPhieuXuatHangHoa, updatePhieuXuatHangHoaChiTietData} = updateData as {
+            _tPhieuXuatHangHoa: UpdatePhieuXuatDTO,
             updatePhieuXuatHangHoaChiTietData: UpdatePhieuXuatChiTietDTO
         }
-        return this.phieuXuatHangHoaService.updatePhieuXuat(updatePhieuXuatData,updatePhieuXuatHangHoaChiTietData,maChungTu,id)
+        return this.phieuXuatHangHoaService.updatePhieuXuat(_tPhieuXuatHangHoa,updatePhieuXuatHangHoaChiTietData,maChungTu,id)
     }
     @Delete('deletephieuxuat/:machungtu') 
     deletedPhieuXuat (

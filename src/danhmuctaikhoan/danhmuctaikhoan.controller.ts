@@ -10,7 +10,7 @@ export class DanhmuctaikhoanController {
     getAll(){
         return this.danhmuctaikhoanService.getAll()
     }
-    @Get('bytaikhoan/:taikhoan')
+    @Get('bymachungtu/:taikhoan')
     getDanhMucTaiKhoanBySoTaiKhoan(@Param('taikhoan' )soTaiKhoan: string ){
         return this.danhmuctaikhoanService.getDanhMucTaiKhoanBySoTaiKhoan(soTaiKhoan)
     }
@@ -34,12 +34,12 @@ export class DanhmuctaikhoanController {
     createDanhMucTaiKhoan(@Body() insertTaiKhoanData: InsertDanhMucTaiKhoanDTO){
         return this.danhmuctaikhoanService.createTaiKhoan(insertTaiKhoanData)
     }
-    @Patch('updatetaikhoan/:taikhoan')
+    @Patch('update/:taikhoan')
     updatedTaiKhoan(
-        @Body() updateTaiKhoanData : UpdateDanhMucTaiKhoanDTO,
+        @Body() _tDanhMucTaiKhoan : UpdateDanhMucTaiKhoanDTO,
         @Param('taikhoan') taiKhoan :string
     ){
-        return this.danhmuctaikhoanService.updateTaiKhoan(updateTaiKhoanData,taiKhoan)
+        return this.danhmuctaikhoanService.updateTaiKhoan(_tDanhMucTaiKhoan,taiKhoan)
     }
     @Delete('deleteTaiKhoan/:taikhoan')
     deletedTaiKhoan(@Param('taikhoan') taikhoan: string){

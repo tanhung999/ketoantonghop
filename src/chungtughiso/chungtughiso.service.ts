@@ -131,7 +131,7 @@ export class ChungtughisoService {
     //         }
 
     // }
-    async createdChungTuGhiSo(chungTuGhiSoData: InsertChungTuGhiSoDTO, chungTuGhiSoChiTietData: InsertChungTuGhiSoChiTietDTO) {
+    async createdChungTuGhiSo(_tChungTuGhiSo: InsertChungTuGhiSoDTO, chungTuGhiSoChiTietData: InsertChungTuGhiSoChiTietDTO) {
         const maxId = await this.prismaService.tChungTuGhiSoChiTiet.findMany({
             orderBy: {
                 nMaSo: 'desc'
@@ -142,7 +142,7 @@ export class ChungtughisoService {
         try {
             const chungTuNew = await this.prismaService.tChungTuGhiSo.create({
                 data: {
-                    ...chungTuGhiSoData,
+                    ..._tChungTuGhiSo,
                     tChungTuGhiSoChiTiet: {
                         create: {
                             ...chungTuGhiSoChiTietData,
@@ -188,7 +188,7 @@ export class ChungtughisoService {
     }
     async updatedChungTuGhiSo(
         maChungTu: string,
-        chungTuGhiSoData: UpdateChungTuGhiSoDTO,
+        _tChungTuGhiSo: UpdateChungTuGhiSoDTO,
     ) {
         const machungtuConfig = convertMaChungTu(maChungTu)
         const existingChungTu = await this.prismaService.tChungTuGhiSo.findUnique({
@@ -202,7 +202,7 @@ export class ChungtughisoService {
             const chungtuAfterUpdated = await this.prismaService.tChungTuGhiSo.update({
                 where: { cMaChungTu: machungtuConfig },
                 data: {
-                    ...chungTuGhiSoData, 
+                    ..._tChungTuGhiSo, 
                 }
             })
             return {

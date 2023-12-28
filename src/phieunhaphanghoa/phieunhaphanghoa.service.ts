@@ -98,7 +98,7 @@ export class PhieunhaphanghoaService {
             throw new Error(`Create phieunhaphanghoa error ${error}`)
         }
     }
-    async updatePhieuNhapHangHoa(updatePhieuNhapHangHoaData: UpdatePhieuNhapHangHoaDTO,
+    async updatePhieuNhapHangHoa(_tPhieuNhapHangHoa: UpdatePhieuNhapHangHoaDTO,
         updatePhieuNhapHangHoaChiTietData: UpdatePhieuNhapHangHoaChiTietDTO,
         maSo: number,
         maChungTu:string
@@ -115,7 +115,7 @@ export class PhieunhaphanghoaService {
             const phieuNhapHangHoaAfterUpdate = await this.prismaService.tPhieuNhapHangHoa.update({
                 where: {cMaChungTu},
                 data:{
-                    ...updatePhieuNhapHangHoaData,
+                    ..._tPhieuNhapHangHoa,
                     tPhieuNhapHangHoaChiTiet: {
                         update: {
                             where: {nMaSo: maSo},

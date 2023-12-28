@@ -42,7 +42,7 @@ export class DanhmuctaikhoancongnokhachhangService {
             throw new ForbiddenException(`Creating a new taikhoancongnokhachhang error ${error}`)
         }
     }
-    async updateDanhMucTaiKhoanCongNoKhachHang (updateDanhMucTaiKhoanCongNoKhachHangData:UpdateTaiKhoanCongNoKhachHangDTO,
+    async updateDanhMucTaiKhoanCongNoKhachHang (_tDanhMucTaiKhoanCongNoKhachHang:UpdateTaiKhoanCongNoKhachHangDTO,
         cMaKhachHang: string,cTaiKhoan:string){
         try {
             const existTaiKhoanCongNoKhachHang = await this.getDanhMucKhachHangByMaKhachHang(cMaKhachHang,cTaiKhoan)
@@ -58,7 +58,7 @@ export class DanhmuctaikhoancongnokhachhangService {
                         cTaiKhoan
                     }
                 },
-                data :{...updateDanhMucTaiKhoanCongNoKhachHangData}
+                data :{..._tDanhMucTaiKhoanCongNoKhachHang}
             }) 
             return {
                 message:"Update danhmuctaikonkhachhang successfullly",

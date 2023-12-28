@@ -10,7 +10,7 @@ export class ChungtughisoController {
     getChungTuGhiSo(){
         return this.chungTuGhiSoService.getAll()
     }
-    @Get('/bysochungtu/:machungtu')
+    @Get('/bymachungtu/:machungtu')
     getChungTuGhiSoByMaChungTu(@Param ('machungtu') maChungTu: string ){
         return this.chungTuGhiSoService.getChungTuGhiSoByMaChungTu(maChungTu)
     }
@@ -33,12 +33,12 @@ export class ChungtughisoController {
         @Body() updateData: any,
         @Query('maso',ParseIntPipe) maSo: number
     ){
-        const {chungTuGhiSoData, chungTuGhiSoChiTietData} = updateData as {
-        chungTuGhiSoData: UpdateChungTuGhiSoDTO,
+        const {_tChungTuGhiSo, chungTuGhiSoChiTietData} = updateData as {
+            _tChungTuGhiSo: UpdateChungTuGhiSoDTO,
         chungTuGhiSoChiTietData: UpdateChungTuGhiSoChiTietDTO
        }
          
-        const chungTuGhiSo= this.chungTuGhiSoService.updatedChungTuGhiSo(maChungTu,chungTuGhiSoData)
+        const chungTuGhiSo= this.chungTuGhiSoService.updatedChungTuGhiSo(maChungTu,_tChungTuGhiSo)
         const chungTuGhiSoChiTiet = this.chungTuGhiSoService.updatedChungTuGhiSoChiTiet(maSo,maChungTu,chungTuGhiSoChiTietData)
         return this.chungTuGhiSoService.getChungTuGhiSoByMaChungTu(maChungTu)
     }

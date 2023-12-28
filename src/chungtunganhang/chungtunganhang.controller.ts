@@ -28,17 +28,17 @@ export class ChungtunganhangController {
         }
         return this.chungTuNganHangService.createChungTuNganHang(insertChungTuNganHangData,insertChungTuNganHangChiTietData)
     }
-    @Patch('/updatechungtunganhang/:machungtu')
+    @Patch('/update/:machungtu')
         updatedChungTuNganHang (
             @Param('machungtu') maChungTu: string,
             @Body() updateChungTuNganHang: any,
             @Query('maso', ParseIntPipe) maSo: number
         ){
-            const {updateChungTuNganHangData, updateChungTuNganHangChiTietData}= updateChungTuNganHang as {
-                updateChungTuNganHangData: UpdateChungTuNganHangDTO,
+            const {_tChungTuNganHang, updateChungTuNganHangChiTietData}= updateChungTuNganHang as {
+                _tChungTuNganHang: UpdateChungTuNganHangDTO,
                 updateChungTuNganHangChiTietData: UpdateChungTuNganHangChiTietDTO
             }
-            const chungTuNganHangAfterUpdate = this.chungTuNganHangService.updateChungTuNganHang(updateChungTuNganHangData,maChungTu)
+            const chungTuNganHangAfterUpdate = this.chungTuNganHangService.updateChungTuNganHang(_tChungTuNganHang,maChungTu)
             const chungtTuNganHangChiTietAfterUpdate =this.chungTuNganHangService.updateChungTuNganHangChiTiet(updateChungTuNganHangChiTietData,maChungTu,maSo)
 
             return {

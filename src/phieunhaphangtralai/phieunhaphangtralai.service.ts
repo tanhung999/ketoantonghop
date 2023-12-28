@@ -101,7 +101,7 @@ export class PhieunhaphangtralaiService {
         }
     }
     async updatePhieuNhapHangTraLai(
-        updatePhieuNhapHangHoaTraLaiData: UpdatePhieuNhapHangTraLaiDTO,
+        _tPhieuNhapHangTraLai: UpdatePhieuNhapHangTraLaiDTO,
         updatePhieuNhapHangHoaTraLaiChiTietData: UpdatePhieuNhapHangTraLaiChiTietDTO,
         maChungTu:string,
         maSo:number
@@ -117,7 +117,7 @@ export class PhieunhaphangtralaiService {
             const phieuNhapHangTraLaiAfterUpdate = await this.prismaService.tPhieuNhapHangTraLai.update({
                 where: {cMaChungTu},
                 data: {
-                    ...updatePhieuNhapHangHoaTraLaiData,
+                    ..._tPhieuNhapHangTraLai,
                     tPhieuNhapHangTraLaiChiTiet:{
                         update:{
                             where:{nMaSo:maSo},

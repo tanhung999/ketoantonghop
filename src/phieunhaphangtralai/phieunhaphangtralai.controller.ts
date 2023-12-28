@@ -27,17 +27,17 @@ export class PhieunhaphangtralaiController {
         }
         return this.phieuNhapHangTraLaiService.createPhieuNhapHangHoaTraLai(insertPhieuNhapHangHoaTraLaiData,insertPhieuNhapHangHoaTraLaiChiTietData)
     }
-    @Patch('createphieunhaphangtralai/:machungtu')
+    @Patch('update/:machungtu')
     updatedPhieuNhapHangTraLai(
         @Body() updateData:any,
         @Param('machungtu') maChungTu:string,
         @Query('maso',ParseIntPipe) maSo: number
     ) {
-        const {updatePhieuNhapHangHoaTraLaiData,updatePhieuNhapHangHoaTraLaiChiTietData} =updateData as {
-            updatePhieuNhapHangHoaTraLaiData: UpdatePhieuNhapHangTraLaiDTO,
+        const {_tPhieuNhapHangTraLai,updatePhieuNhapHangHoaTraLaiChiTietData} =updateData as {
+            _tPhieuNhapHangTraLai: UpdatePhieuNhapHangTraLaiDTO,
             updatePhieuNhapHangHoaTraLaiChiTietData: UpdatePhieuNhapHangTraLaiChiTietDTO
         }
-        return this.phieuNhapHangTraLaiService.updatePhieuNhapHangTraLai(updatePhieuNhapHangHoaTraLaiData,updatePhieuNhapHangHoaTraLaiChiTietData,maChungTu,maSo)
+        return this.phieuNhapHangTraLaiService.updatePhieuNhapHangTraLai(_tPhieuNhapHangTraLai,updatePhieuNhapHangHoaTraLaiChiTietData,maChungTu,maSo)
     }
     @Delete('deletephieunhaphangtralai/:machungtu')
     deletePhieuNhapHangTraLai(

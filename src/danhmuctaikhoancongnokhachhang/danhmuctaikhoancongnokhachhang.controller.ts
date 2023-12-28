@@ -8,7 +8,7 @@ export class DanhmuctaikhoancongnokhachhangController {
     getAll(){
         return this.danhmuctaikhoancongnokhachhangService.getAll()
     }
-    @Get('getOneRecord/:cMaKhachHang/:cTaiKhoan')
+    @Get('bymachungtu/:cMaKhachHang/:cTaiKhoan')
     getDanhMucKhachHangByMaKhachHang(
         @Param('cMaKhachHang') cMaKhachHang: string,
         @Param('cTaiKhoan') cTaiKhoan: string,
@@ -21,13 +21,13 @@ export class DanhmuctaikhoancongnokhachhangController {
     ){
         return this.danhmuctaikhoancongnokhachhangService.createDanhMucTaiKhoanCongNoKhachHang(insertTaiKhoanCongNoKhachHangData)
     }
-    @Patch('updatetaikhoancongno/:cMaKhachHang/:cTaiKhoan')
+    @Patch('update/:cMaKhachHang/:cTaiKhoan')
     updateTaiKhoanCongNo(
-        @Body() updateTaiKhoanCongNoData : UpdateTaiKhoanCongNoKhachHangDTO,
+        @Body() _tDanhMucTaiKhoanCongNoKhachHang : UpdateTaiKhoanCongNoKhachHangDTO,
         @Param('cMaKhachHang') cMaKhachHang:string,
         @Param('cTaiKhoan') cTaiKhoan:string
     ) {
-        return this.danhmuctaikhoancongnokhachhangService.updateDanhMucTaiKhoanCongNoKhachHang(updateTaiKhoanCongNoData,cMaKhachHang,cTaiKhoan)
+        return this.danhmuctaikhoancongnokhachhangService.updateDanhMucTaiKhoanCongNoKhachHang(_tDanhMucTaiKhoanCongNoKhachHang,cMaKhachHang,cTaiKhoan)
         // kiểm tra lại chổ này 
         // a viết nhầm lúc nãy là return this.updateTaiKhoanCongNo(updateTaiKhoanCongNoData,cMaKhachHang,cTaiKhoan)
         // => sửa lại thành như trên

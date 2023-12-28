@@ -84,7 +84,8 @@ export class PhieuxuathangtralaiService {
         }
         
     }
-    async createPhieuXuatHangTraLai(insertPhieuXuatHangTraLaiData: InsertPhieuXuatHangTraLaiDTO,
+    async createPhieuXuatHangTraLai(
+        insertPhieuXuatHangTraLaiData: InsertPhieuXuatHangTraLaiDTO,
         insertPhieuXuatHangTraLaiChiTietData: InsertPhieuXuatHangTraLaiChiTietDTO    
     ){
         try {
@@ -107,7 +108,8 @@ export class PhieuxuathangtralaiService {
             throw new ForbiddenException(`Create Phieu Xuat Hang Tra Lai error ${error}`)
         }
     }
-    async updatePhieuXuatHangTraLai (updatePhieuXuatHangTraLaiData: UpdatePhieuXuatHangTraLaiDTO,
+    async updatePhieuXuatHangTraLai (
+        _tPhieuXuatHangTraLai: UpdatePhieuXuatHangTraLaiDTO,
         updatePhieuXuatHangTraLaiChiTietData : UpdatePhieuXuatHangTraLaiChiTietDTO,
         maChungTu: string,
         nMaSo: number
@@ -123,7 +125,7 @@ export class PhieuxuathangtralaiService {
             const phieuXuatAfterUpdate = await this.prismaService.tPhieuXuatHangTraLai.update({
                 where:{cMaChungTu},
                 data:{
-                    ...updatePhieuXuatHangTraLaiData,
+                    ..._tPhieuXuatHangTraLai,
                     tPhieuXuatHangTraLaiChiTiet: {
                         update:{
                             where: {nMaSo},

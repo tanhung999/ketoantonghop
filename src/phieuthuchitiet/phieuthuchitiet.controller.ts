@@ -25,16 +25,16 @@ export class PhieuthuchitietController {
         }
         return this.phieuThuChiTietService.createPhieuThu(insertPhieuThuData,insertPhieuThuChiTietData)
     }
-    @Patch('updatephieuthu/:machungtu')
+    @Patch('update/:machungtu')
     updatedPhieuThu (@Body() updateData: any,
         @Param('machungtu') maChungTu : string,
         @Query('id', ParseIntPipe) id : number
     ){
-        const {updatePhieuThuData,updatePhieuThuChiTietData} = updateData as {
-            updatePhieuThuData: UpdatePhieuThuDTO,
+        const {_tPhieuThu,updatePhieuThuChiTietData} = updateData as {
+            _tPhieuThu: UpdatePhieuThuDTO,
             updatePhieuThuChiTietData: UpdatePhieuThuChiTietDTO 
         }
-        return this.phieuThuChiTietService.updatePhieuThu(updatePhieuThuData,updatePhieuThuChiTietData,maChungTu,id)
+        return this.phieuThuChiTietService.updatePhieuThu(_tPhieuThu,updatePhieuThuChiTietData,maChungTu,id)
     }
     @Delete('deletephieuthu/:machungtu')
     deletedPhieuThu (@Param('machungtu') maChungTu: string){

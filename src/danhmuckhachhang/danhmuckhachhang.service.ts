@@ -41,11 +41,11 @@ export class DanhmuckhachhangService {
             throw new ForbiddenException(`Create a new khachhang error ${error}`)
         }
     }
-    async updateKhachHang(updateKhachHangData:UpdateDanhMucKhachHangDTO,cMaKhachHang:string){
+    async updateKhachHang(_tDanhMucKhachHang:UpdateDanhMucKhachHangDTO,cMaKhachHang:string){
         try {
             const KhachHangAfterUpdate = await this.prismaService.tDanhMucKhachHang.update({
                 where:{cMaKhachHang },
-                data:{...updateKhachHangData}
+                data:{..._tDanhMucKhachHang}
             })
             return {
                 message: 'Update KhachHang Successfully',

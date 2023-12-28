@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, ParseIntPipe, Patch, Post, Query } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post, Query } from '@nestjs/common';
 import { PhieuchichitietService } from './phieuchichitiet.service';
 import { InsertPhieuChiChiTietDTO, InsertPhieuChiDTO } from './dto';
 import { convertMaChungTu } from 'src/convert.sochungtu.ts';
@@ -28,16 +28,22 @@ export class PhieuchichitietController {
         }
         return this.phieuChiChiTietService.createPhieuChi(insertPhieuChiData,insertPhieuChiChiTietData);
     }
-    @Patch('updatephieuchi/:machungtu')
+    @Patch('update/:machungtu')
     updatePhieuChi(
         @Body() updateData:any,
         @Param('machungtu') maChungTu: string,
-        @Query('id', ParseIntPipe) id:number
+        @Query('maso', ParseIntPipe) id:number
     ){
-        const {updatePhieuChiData,updatePhieuChiChiTietData} = updateData as {
-            updatePhieuChiData: InsertPhieuChiDTO,
+        const {_tPhieuChi,updatePhieuChiChiTietData} = updateData as {
+            _tPhieuChi: InsertPhieuChiDTO,
             updatePhieuChiChiTietData: InsertPhieuChiChiTietDTO
         }
-        return this.phieuChiChiTietService.updatePhieuChi(updatePhieuChiData,updatePhieuChiChiTietData,maChungTu,id)
+        return this.phieuChiChiTietService.updatePhieuChi(_tPhieuChi,updatePhieuChiChiTietData,maChungTu,id)
+    }
+    @Delete('delete/:machungtu')
+    deletePhieuChi(
+        @Param('machungtu') maChungTu: string
+    ){
+        return this.deletePhieuChi(maChungTu)
     }
 }

@@ -40,11 +40,11 @@ export class DanhmuctaikhoanService {
             throw new ForbiddenException(`Create a new taikhoan error ${error}`)
         }
     }
-    async updateTaiKhoan(updateTaiKhoanData:UpdateDanhMucTaiKhoanDTO,taiKhoan:string){
+    async updateTaiKhoan(_tDanhMucTaiKhoan:UpdateDanhMucTaiKhoanDTO,taiKhoan:string){
         try {
             const taiKhoanAfterUpdate = await this.prismaService.tDanhMucTaiKhoan.update({
                 where:{cTaiKhoan: taiKhoan },
-                data:{...updateTaiKhoanData}
+                data:{..._tDanhMucTaiKhoan}
             })
             return {
                 message: 'Update taikhoan Successfully',

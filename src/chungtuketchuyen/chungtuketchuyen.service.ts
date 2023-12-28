@@ -64,24 +64,13 @@ export class ChungtuketchuyenService {
         throw new ForbiddenException(`Getting the next chungtu error ${error}`)
       }
     }
-    async createdChungTuKetChuyen(chungTuKetChuyenData:InsertChungTuKetChuyenDTO,ketChuyenChiTietData:InsertChungTuKetChuyenChiTietDTO){
+    async createdChungTuKetChuyen(_tChungTuKetChuyen:InsertChungTuKetChuyenDTO,ketChuyenChiTietData:InsertChungTuKetChuyenChiTietDTO){
       try {
-          // const { cMaChungTu, cLoaiChungTu, cSoChungTu, dNgayChungTu, cDienGiai } = chungTuKetChuyenData;
-          // const { cDienGiaiChiTiet, cTaiKhoanNo, cTaiKhoanCo, nSoTien } = ketChuyenChiTietData;
           const createdChungTu = await this.prismaService.tChungTuKetChuyen.create({
             data: {
-              // cMaChungTu,
-              // cLoaiChungTu,
-              // cSoChungTu,
-              // dNgayChungTu,
-              // cDienGiai,
-              ...chungTuKetChuyenData,
+              ..._tChungTuKetChuyen,
               tChungTuKetChuyenChiTiet: {
                 create: {
-                  // cDienGiaiChiTiet,
-                  // cTaiKhoanNo,
-                  // cTaiKhoanCo,
-                  // nSoTien,
                   ...ketChuyenChiTietData
                 },
               },
@@ -101,7 +90,7 @@ export class ChungtuketchuyenService {
         }
     }
     async updateChungTuKetChuyen(
-      updateChungTuKetChuyenData: UpdateChungTuKetChuyenDTO,
+      _tChungTuKetChuyen: UpdateChungTuKetChuyenDTO,
       updateChungTuKetChuyenChiTietData:UpdateChungTuKetChuyenChiTietDTO,
       maChungTu: string,
       id:number
@@ -118,7 +107,7 @@ export class ChungtuketchuyenService {
           const chungTuKetChuyenAfterUpdate= await this.prismaService.tChungTuKetChuyen.update({
             where: {cMaChungTu},
             data:{
-              ...updateChungTuKetChuyenData,
+              ..._tChungTuKetChuyen,
               tChungTuKetChuyenChiTiet: {
                 update: {
                   where: {id},

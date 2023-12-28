@@ -27,17 +27,17 @@ export class PhieunhaphanghoaController {
         }
         return this.phieuNhapHangHoaService.createPhieuNhapHangHoa(insertPhieuNhapHangHoaData,insertPhieuNhapHangHoaChiTietData)
     }
-    @Patch('updatephieunhaphanghoa/:machungtu')
+    @Patch('update/:machungtu')
     updatedPhieuNhapHangHoa (
         @Body() updateData: any,
         @Param('machungtu') maChungTu : string,
         @Query('maso',ParseIntPipe) maSo:number
     ){
-        const {updatePhieuNhapHangHoaData,updatePhieuNhapHangHoaChiTietData} = updateData as {
-            updatePhieuNhapHangHoaData: UpdatePhieuNhapHangHoaDTO,
+        const {_tPhieuNhapHangHoa,updatePhieuNhapHangHoaChiTietData} = updateData as {
+            _tPhieuNhapHangHoa: UpdatePhieuNhapHangHoaDTO,
             updatePhieuNhapHangHoaChiTietData: UpdatePhieuNhapHangHoaChiTietDTO
         }
-        return this.phieuNhapHangHoaService.updatePhieuNhapHangHoa(updatePhieuNhapHangHoaData,updatePhieuNhapHangHoaChiTietData,maSo,maChungTu)
+        return this.phieuNhapHangHoaService.updatePhieuNhapHangHoa(_tPhieuNhapHangHoa,updatePhieuNhapHangHoaChiTietData,maSo,maChungTu)
     }
     @Delete('deletephieunhaphanghoa/:machungtu')
     deletedPhieuNhapHangHoa(@Param('machungtu') maChungTu: string){

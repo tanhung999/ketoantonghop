@@ -99,7 +99,7 @@ export class ChungtunganhangService {
         }
     }
     async updateChungTuNganHang(
-        updateChungTuNganHangData: UpdateChungTuNganHangDTO,
+        _tChungTuNganHang: UpdateChungTuNganHangDTO,
         maChungTu : string,
     ){
         const maChungTuNganHang = convertMaChungTu(maChungTu)
@@ -113,7 +113,7 @@ export class ChungtunganhangService {
             return await this.prismaService.tChungTuNganHang.update({
                 where: {cMaChungTu: maChungTuNganHang},
                 data:{
-                    ...updateChungTuNganHangData
+                    ..._tChungTuNganHang
                 }
             })
         } catch (error) {

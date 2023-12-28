@@ -8,7 +8,7 @@ export class DanhmuchanghoaController {
     getAll(){
         return this.danhmuchanghoaService.getAll()
     }
-    @Get('/bymahang/:mahanghoa')
+    @Get('/bymachungtu/:mahanghoa')
     getHangHoaByMaHang(@Param('mahanghoa') maHangHoa: string){
         return this.danhmuchanghoaService.getHangHoaByMaHang(maHangHoa);
     }
@@ -18,12 +18,12 @@ export class DanhmuchanghoaController {
     ){
         return this.danhmuchanghoaService.createHangHoa(insertHangHoaData)
     }
-    @Patch('updatehanghoa/:bymahang')
+    @Patch('update/:bymahang')
     updatedHangHoa(
-        @Body() updateHangHoaData : UpdateHangHoaDTO,
+        @Body() _tDanhMucHangHoa : UpdateHangHoaDTO,
         @Param('bymahang') maHang: string
     ){
-        return this.danhmuchanghoaService.updateHangHoa(updateHangHoaData,maHang)
+        return this.danhmuchanghoaService.updateHangHoa(_tDanhMucHangHoa,maHang)
     }
     @Delete('deletehanghoa/:bymahang')
     deletedHangHoa(@Param('bymahang') maHang:string){

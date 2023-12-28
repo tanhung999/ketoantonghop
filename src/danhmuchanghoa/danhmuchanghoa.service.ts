@@ -35,12 +35,12 @@ export class DanhmuchanghoaService {
             throw new ForbiddenException(`Adding hanghoa error ${error}`)
         }
     }
-    async updateHangHoa(updateHangHoaData: UpdateHangHoaDTO,maHang: string) {
+    async updateHangHoa(_tDanhMucHangHoa: UpdateHangHoaDTO,maHang: string) {
         try {
             const hangHoaAfterUpdate = await this.prismaService.tDanhMucHangHoa.update({
                 where :{cMaHang: maHang},
                 data :{
-                    ...updateHangHoaData
+                    ..._tDanhMucHangHoa
                 }
             }) 
             return {

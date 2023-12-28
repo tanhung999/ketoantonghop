@@ -116,7 +116,7 @@ export class PhieuxuathanghoaService {
     }
 
     async updatePhieuXuat (
-        updatePhieuXuatData: UpdatePhieuXuatDTO,
+        _tPhieuXuatHangHoa: UpdatePhieuXuatDTO,
         updatePhieuXuatHangHoaChiTietData : UpdatePhieuXuatChiTietDTO,
         maChungTu: string,
         id: number
@@ -131,7 +131,7 @@ export class PhieuxuathanghoaService {
             const phieuXuatAfterUpdate = await this.prismaService.tPhieuXuatHangHoa.update({
                 where: {cMaChungTu},
                 data: {
-                    ...updatePhieuXuatData,
+                    ..._tPhieuXuatHangHoa,
                     tPhieuXuatHangHoaChiTiet: {
                         update: {
                             where :{id},

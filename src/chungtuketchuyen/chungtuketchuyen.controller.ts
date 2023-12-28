@@ -27,16 +27,16 @@ export class ChungtuketchuyenController {
         }
         return this.chungTuKetChuyenService.createdChungTuKetChuyen(chungTuKetChuyenData,ketChuyenChiTietData)
     }
-    @Patch('/updatechungtuketchuyen/:bymachungtu')
+    @Patch('/update/:bymachungtu')
     updatedChungTuKetChuyen(
         @Body() updateChungTuData : any,
         @Param('bymachungtu') maChungTu: string,
-        @Query('id',ParseIntPipe) id: number
+        @Query('maso',ParseIntPipe) id: number
     
     ){
-        const {updateChungTuKetChuyenData,updateChungTuKetChuyenChiTietData} =
-        updateChungTuData as {updateChungTuKetChuyenData: UpdateChungTuKetChuyenDTO,updateChungTuKetChuyenChiTietData:UpdateChungTuKetChuyenChiTietDTO}
-        return this.chungTuKetChuyenService.updateChungTuKetChuyen(updateChungTuKetChuyenData,updateChungTuKetChuyenChiTietData,maChungTu,id)
+        const {_tChungTuKetChuyen,updateChungTuKetChuyenChiTietData} =
+        updateChungTuData as {_tChungTuKetChuyen: UpdateChungTuKetChuyenDTO,updateChungTuKetChuyenChiTietData:UpdateChungTuKetChuyenChiTietDTO}
+        return this.chungTuKetChuyenService.updateChungTuKetChuyen(_tChungTuKetChuyen,updateChungTuKetChuyenChiTietData,maChungTu,id)
     }   
     @Delete('/deletedchungtuketchuyen/:bymachungtu')
     deleteChungTuKetChuyen(
